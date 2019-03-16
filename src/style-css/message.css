@@ -1,0 +1,85 @@
+@import '~antd/dist/antd.css';
+
+.talk-bubble-right {
+	margin: 40px;
+    display: inline-block;
+    position: relative;
+	width: 200px;
+	height: auto;
+    background-color:#fe8a71;
+}
+
+.talk-bubble-left {
+	margin: 40px;
+    display: inline-block;
+    position: relative;
+	width: 200px;
+	height: auto;
+    background-color:#f6cd61;
+}
+
+.round{
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+}
+
+.tri-right.border.btm-left:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -8px;
+    right: auto;
+    top: auto;
+	bottom: -40px;
+	border: 32px solid;
+    border-color: transparent transparent transparent #666;
+}
+.tri-right.btm-left:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 0px;
+    right: auto;
+    top: auto;
+	bottom: -20px;
+	border: 22px solid;
+    border-color: transparent transparent transparent #f6cd61;
+}
+
+.tri-right.border.btm-right:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+    left: auto;
+	right: -8px;
+	bottom: -40px;
+	border: 32px solid;
+    border-color: #666 #666 transparent transparent;
+}
+.tri-right.btm-right:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+    left: auto;
+	right: 0px;
+	bottom: -20px;
+	border: 22px solid;
+    border-color: #fe8a71 #fe8a71 transparent transparent;
+}
+
+.talktext-left{
+    padding: 1em;
+    text-align: left;
+    line-height: 1.5em;
+}
+
+.talktext-right{
+    padding: 1em;
+    text-align: right;
+    line-height: 1.5em;
+}

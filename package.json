@@ -3,11 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^0.18.0",
-=======
     "antd": "^3.15.0",
->>>>>>> 0ad91a8b1ba8034a5edec236e15f6d7a7e001670
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-router-dom": "^4.4.0",

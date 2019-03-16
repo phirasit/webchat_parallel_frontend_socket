@@ -1,7 +1,7 @@
 const axios = require('axios');
 const hostURL = "http://parallel.ojudge.in.th/"
 const queryURL = hostURL + "/abci_query"
-const boardcastURL = hostURL + "/broadcast_tx_async"
+const boardcastURL = hostURL + "/broadcast_tx_sync"
 
 function getMessage(user, group, last_message, limit=20) {
     data = {
@@ -10,10 +10,10 @@ function getMessage(user, group, last_message, limit=20) {
         last_message : last_message, 
         limit : limit
     }
+    json = JSON.stringify(data);
     return axios.get(queryURL,  {
         params: {
-            type : 'get_message',
-            data : data
+            data : JSON.stringify({ type: 'get_message', data: json })
         }
       })
       .then(function (response) {
@@ -32,10 +32,11 @@ function getUnreadMessage(user, group) {
         user : user,
         group : group
     }
+    // json = JSON.stringify(data);
+    json = data;
     return axios.get(queryURL,  {
         params: {
-            type : 'get_unread_message',
-            data : data
+            data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
         }
       })
       .then(function (response) {
@@ -54,11 +55,11 @@ function createNewGroup(user, group) {
         user : user,
         group : group
     }
-    json = JSON.stringify(data);
+    // json = JSON.stringify(data);
+    json = data;
     return axios.get(boardcastURL,  {
         params: {
-            type : 'create_group',
-            tx : json
+            Tx: JSON.stringify({ type: 'crate_group', data: json })
         }
       })
       .then(function (response) {
@@ -77,10 +78,10 @@ function joinGroup(user, group) {
         user : user,
         group : group
     }
+    json = JSON.stringify(data);
     return axios.get(boardcastURL,  {
         params: {
-            type : 'join_group',
-            tx : data
+            Tx: JSON.stringify({ type: '่join_group', data: json })
         }
       })
       .then(function (response) {
@@ -99,10 +100,10 @@ function leaveGroup(user, group) {
         user : user,
         group : group
     }
+    json = JSON.stringify(data);
     return axios.get(boardcastURL,  {
         params: {
-            type : 'leave_group',
-            tx : data
+            Tx: JSON.stringify({ type: 'leave_group', data: json })
         }
       })
       .then(function (response) {
@@ -122,10 +123,10 @@ function readMessage(user, group, timestamp) {
         group: group,
         timestamp: timestamp
     }
+    json = JSON.stringify(data);
     return axios.get(boardcastURL, {
         params: {
-            type: 'read_message',
-            tx : data
+            Tx: JSON.stringify({ type: 'read_message', data: json })
         }
     })
         .then(function (response) {
@@ -145,10 +146,10 @@ function sentMessage(user, group, message) {
         group: group,
         message: message
     }
+    json = JSON.stringify(data);
     return axios.get(boardcastURL, {
         params: {
-            type: 'send_message',
-            tx : data   
+            Tx: JSON.stringify({ type: 'send_message', data: json })
         }
     })
         .then(function (response) {

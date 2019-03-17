@@ -1,9 +1,9 @@
 const axios = require('axios');
 const hostURL = "http://parallel.ojudge.in.th/"
-const queryURL = hostURL + "/abci_query"
-const boardcastURL = hostURL + "/broadcast_tx_sync"
+const queryURL = hostURL + "abci_query"
+const boardcastURL = hostURL + "broadcast_tx_sync"
 
-function getMessage(user, group, last_message, limit=20) {
+function getMessage(user, group, last_message=null, limit=20) {
     data = {
         user : user,
         group : group,
@@ -62,7 +62,7 @@ function createNewGroup(user, group) {
         user : user,
         group : group
     }
-    str = JSON.stringify({ type: 'create_new_group', data: data });
+    str = JSON.stringify({ type: 'create_group', data: data });
     str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL,  {
         params: {

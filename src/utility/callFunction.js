@@ -10,10 +10,11 @@ function getMessage(user, group, last_message, limit=20) {
         last_message : last_message, 
         limit : limit
     }
-    json = JSON.stringify(data);
+    str = JSON.stringify({ type: 'get_message', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(queryURL,  {
         params: {
-            data : JSON.stringify({ type: 'get_message', data: json })
+            data : "\"" + str + "\""
         }
       })
       .then(function (response) {
@@ -32,11 +33,12 @@ function getUnreadMessage(user, group) {
         user : user,
         group : group
     }
-    // json = JSON.stringify(data);
-    json = data;
+    str = JSON.stringify({ type: 'get_unread_message', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(queryURL,  {
         params: {
-            data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
+            // data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
+            data : "\"" + str + "\""
         }
       })
       .then(function (response) {
@@ -49,17 +51,22 @@ function getUnreadMessage(user, group) {
         // always executed
       }); 
 }
+/*
+http://parallel.ojudge.in.th/abci_query?data="{\"type\":\"get_unread_message\",\"data\":{\"user\":\"1\",\"group\":\"123\"}}"
+http://parallel.ojudge.in.th/abci_query?data="{"type":"get_unread_message","data":{"user":"1","group":"123"}}"
+
+*/
 
 function createNewGroup(user, group) {
     data = {
         user : user,
         group : group
     }
-    // json = JSON.stringify(data);
-    json = data;
+    str = JSON.stringify({ type: 'create_new_group', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL,  {
         params: {
-            Tx: JSON.stringify({ type: 'crate_group', data: json })
+            tx: "\"" + str + "\""
         }
       })
       .then(function (response) {
@@ -78,10 +85,11 @@ function joinGroup(user, group) {
         user : user,
         group : group
     }
-    json = JSON.stringify(data);
+    str = JSON.stringify({ type: 'join_group', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL,  {
         params: {
-            Tx: JSON.stringify({ type: '่join_group', data: json })
+            tx: "\"" + str + "\""
         }
       })
       .then(function (response) {
@@ -100,10 +108,11 @@ function leaveGroup(user, group) {
         user : user,
         group : group
     }
-    json = JSON.stringify(data);
+    str = JSON.stringify({ type: 'leave_group', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL,  {
         params: {
-            Tx: JSON.stringify({ type: 'leave_group', data: json })
+            tx: "\"" + str + "\""
         }
       })
       .then(function (response) {
@@ -123,10 +132,11 @@ function readMessage(user, group, timestamp) {
         group: group,
         timestamp: timestamp
     }
-    json = JSON.stringify(data);
+    str = JSON.stringify({ type: 'read_message', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL, {
         params: {
-            Tx: JSON.stringify({ type: 'read_message', data: json })
+            tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
@@ -140,16 +150,17 @@ function readMessage(user, group, timestamp) {
         });
 }
 
-function sentMessage(user, group, message) {
+function sendMessage(user, group, message) {
     data = {
         user: user,
         group: group,
         message: message
     }
-    json = JSON.stringify(data);
+    str = JSON.stringify({ type: 'send_message', data: data });
+    str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL, {
         params: {
-            Tx: JSON.stringify({ type: 'send_message', data: json })
+            tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
@@ -170,5 +181,5 @@ module.exports = {
     joinGroup : joinGroup, 
     leaveGroup : leaveGroup,
     readMessage : readMessage, 
-    sentMessage : sentMessage
+    sendMessage : sendMessage
 };

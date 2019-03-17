@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Input, Divider } from 'antd'
 import '../style-css/body.css';
 import '../style-css/message.css';
+import ChatList from './ChatList.jsx'
 
 class ChatPart extends Component {
     state = {
@@ -15,7 +16,9 @@ class ChatPart extends Component {
     render() {
         return (
             <div className="body">
-                <div className="chat-list">this is left ja.</div>
+                <div className="chat-list">
+                    <ChatList></ChatList>
+                </div>
                 <Divider type="vertical" />
                 <div className="chat-part">
                     <div className="chat-part">
@@ -42,4 +45,4 @@ class ChatPart extends Component {
     }
 }
 
-export default ChatPart
+export default ChatPart;

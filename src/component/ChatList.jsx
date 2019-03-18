@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Divider, Row, Col, Button } from 'antd';
+import { Layout, Divider, Row, Modal, Button } from 'antd';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
 
@@ -11,8 +11,29 @@ class ChatList extends Component {
         this.state = {
             clientID: '',
             chatTabList: [],
+            visible: false,
         }
 
+    }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
     }
 
     render() {
@@ -28,7 +49,17 @@ class ChatList extends Component {
                     <Divider />
                     <div>
                         <Row>
-                            <Button>Create Group</Button>
+                            <Button onClick={this.showModal}>Create Group</Button>
+                            <Modal
+                                title="Basic Modal"
+                                visible={this.state.visible}
+                                onOk={this.handleOk}
+                                onCancel={this.handleCancel}
+                            >
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                            </Modal>
                             <Button>Join Group</Button>
                             <Button type='danger'>Logout</Button>
                         </Row>

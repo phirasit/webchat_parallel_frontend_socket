@@ -1,0 +1,27 @@
+.image-cropper {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+img {
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+}
+
+.parent {
+    padding: 20px;
+    border: 50px;
+}
+
+.parent:hover{
+    background-color: darkgray;
+}
+
+.parent:active{
+    background-color: dimgray;
+}

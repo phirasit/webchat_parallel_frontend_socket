@@ -47,6 +47,7 @@ function getUnreadMessage(user, group) {
         console.log("Got a message")
         message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
         ret = { code: 1, message: message }
+        console.log(ret)
         return ret
         // console.log(JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii')))
       }

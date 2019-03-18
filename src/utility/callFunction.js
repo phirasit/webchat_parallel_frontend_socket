@@ -11,7 +11,7 @@ function getMessage(user, group, last_message = null, limit = 20) {
         limit: limit
     }
     let str = JSON.stringify({ type: 'get_message', data: data });
-    str = str.split("\"").join("\\\"")
+    let str = str.split("\"").join("\\\"")
     return axios.get(queryURL, {
         params: {
             data: "\"" + str + "\""
@@ -34,15 +34,30 @@ function getUnreadMessage(user, group) {
         group: group
     }
     let str = JSON.stringify({ type: 'get_unread_message', data: data });
-    str = str.split("\"").join("\\\"")
-    return axios.get(queryURL, {
+    let str = str.split("\"").join("\\\"")
+    axios.get(queryURL, {
         params: {
             // data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
             data: "\"" + str + "\""
         }
     })
         .then(function (response) {
-            console.log(response);
+            // console.log(response.data);
+            if (response.data.result.response.log == "OK") {
+                console.log("Got a message")
+                message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
+                ret = { code: 1, message: message }
+                console.log(ret)
+                return ret
+                // console.log(JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii')))
+            }
+            else {
+                log = response.data.result.response.log
+                console.log("Error : " + log)
+                ret = { code: 0, message: log }
+                return ret
+            }
+            // response.data
         })
         .catch(function (error) {
             console.log(error);
@@ -63,16 +78,21 @@ function createNewGroup(user, group) {
         group: group
     }
     let str = JSON.stringify({ type: 'create_group', data: data });
-    str = str.split("\"").join("\\\"")
+    let str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
-            // console.log(response);
-            console.log("Got it")
-            console.log(response.data)
+            if (!response.data.error) {
+                console.log(response.data.result);
+                return response.data.result;
+            }
+            else {
+                console.log("ERR " + response.data.error)
+                return response.data.error;
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -88,17 +108,27 @@ function joinGroup(user, group) {
         group: group
     }
     let str = JSON.stringify({ type: 'join_group', data: data });
-    str = str.split("\"").join("\\\"")
-    return axios.get(boardcastURL, {
+    let str = str.split("\"").join("\\\"")
+    axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
-            console.log(response);
+            if (!response.data.error) {
+                console.log(response.data.result);
+                return response.data.result;
+            }
+            else {
+                console.log("Err")
+                console.log(response.data.error)
+                return response.data.error;
+            }
+
         })
         .catch(function (error) {
             console.log(error);
+            console.log("ERRRRRRRRRRRRRRR")
         })
         .then(function () {
             // always executed
@@ -111,14 +141,22 @@ function leaveGroup(user, group) {
         group: group
     }
     let str = JSON.stringify({ type: 'leave_group', data: data });
-    str = str.split("\"").join("\\\"")
-    return axios.get(boardcastURL, {
+    let str = str.split("\"").join("\\\"")
+    axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
-            console.log(response);
+            if (!response.data.error) {
+                console.log(response.data.result);
+                return response.data.result;
+            }
+            else {
+                console.log("Err")
+                console.log(response.data.error)
+                return response.data.error;
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -135,14 +173,22 @@ function readMessage(user, group, timestamp) {
         timestamp: timestamp
     }
     let str = JSON.stringify({ type: 'read_message', data: data });
-    str = str.split("\"").join("\\\"")
-    return axios.get(boardcastURL, {
+    let str = str.split("\"").join("\\\"")
+    axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
-            console.log(response);
+            if (!response.data.error) {
+                console.log(response.data.result);
+                return response.data.result;
+            }
+            else {
+                console.log("Err")
+                console.log(response.data.error)
+                return response.data.error;
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -159,14 +205,22 @@ function sendMessage(user, group, message) {
         message: message
     }
     let str = JSON.stringify({ type: 'send_message', data: data });
-    str = str.split("\"").join("\\\"")
-    return axios.get(boardcastURL, {
+    let str = str.split("\"").join("\\\"")
+    axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
         }
     })
         .then(function (response) {
-            console.log(response);
+            if (!response.data.error) {
+                console.log(response.data.result);
+                return response.data.result;
+            }
+            else {
+                console.log("Err")
+                console.log(response.data.error)
+                return response.data.error;
+            }
         })
         .catch(function (error) {
             console.log(error);

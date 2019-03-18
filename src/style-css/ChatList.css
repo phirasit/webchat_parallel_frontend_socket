@@ -1,11 +1,19 @@
-<<<<<<< HEAD
-=======
 .header{
     color: white;
+    background-color: darksalmon;
+    width: 100%;
+    height: 10vh;
 }
 
-.parent:hover{
-    background-color: darkgray;
+.chatlist-container{
+    height: 100vh;
 }
- 
->>>>>>> 317f93c47eb36e5bed78eb3c448d114c3b546d08
+
+.chatlist-content{
+    height: 80vh;
+}
+
+.chatlist-footer{
+    height: 10vh;
+    background-color: darksalmon;
+}

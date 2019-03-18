@@ -27,6 +27,7 @@ class ChatMessage extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, document.body.scrollHeight);
         // this.fetchData((res) => {
         //     this.setState({
         //         data: res.results,

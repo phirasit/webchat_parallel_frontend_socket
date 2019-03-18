@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Divider, Row, Modal, Button, Input } from 'antd';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
-var Caller = require('../utility/callFunction');
+// var Caller = require('../utility/callFunction');
 
 const { Header, Footer, Content } = Layout;
 
@@ -26,7 +26,7 @@ class ChatList extends Component {
 
     handleOk = (e) => {
         console.log(this.state.groupName);
-        Caller.createNewGroup(this.state.clientID, this.state.groupName);
+        // Caller.createNewGroup(this.state.clientID, this.state.groupName);
         this.setState({
             visible: false,
         });

@@ -4,14 +4,14 @@ const queryURL = hostURL + "abci_query"
 const boardcastURL = hostURL + "broadcast_tx_sync"
 
 function getMessage(user, group, last_message = null, limit = 20) {
-    let data = {
+    var data = {
         user: user,
         group: group,
         last_message: last_message,
         limit: limit
     }
-    let str = JSON.stringify({ type: 'get_message', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'get_message', data: data });
+    var str = str.split("\"").join("\\\"")
     return axios.get(queryURL, {
         params: {
             data: "\"" + str + "\""
@@ -29,12 +29,12 @@ function getMessage(user, group, last_message = null, limit = 20) {
 }
 
 function getUnreadMessage(user, group) {
-    let data = {
+    var data = {
         user: user,
         group: group
     }
-    let str = JSON.stringify({ type: 'get_unread_message', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'get_unread_message', data: data });
+    var str = str.split("\"").join("\\\"")
     axios.get(queryURL, {
         params: {
             // data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
@@ -73,12 +73,12 @@ http://parallel.ojudge.in.th/abci_query?data="{"type":"get_unread_message","data
 */
 
 function createNewGroup(user, group) {
-    let data = {
+    var data = {
         user: user,
         group: group
     }
-    let str = JSON.stringify({ type: 'create_group', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'create_group', data: data });
+    var str = str.split("\"").join("\\\"")
     return axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
@@ -103,12 +103,12 @@ function createNewGroup(user, group) {
 }
 
 function joinGroup(user, group) {
-    let data = {
+    var data = {
         user: user,
         group: group
     }
-    let str = JSON.stringify({ type: 'join_group', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'join_group', data: data });
+    var str = str.split("\"").join("\\\"")
     axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
@@ -136,12 +136,12 @@ function joinGroup(user, group) {
 }
 
 function leaveGroup(user, group) {
-    let data = {
+    var data = {
         user: user,
         group: group
     }
-    let str = JSON.stringify({ type: 'leave_group', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'leave_group', data: data });
+    var str = str.split("\"").join("\\\"")
     axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
@@ -167,13 +167,13 @@ function leaveGroup(user, group) {
 }
 
 function readMessage(user, group, timestamp) {
-    let data = {
+    var data = {
         user: user,
         group: group,
         timestamp: timestamp
     }
-    let str = JSON.stringify({ type: 'read_message', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'read_message', data: data });
+    var str = str.split("\"").join("\\\"")
     axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""
@@ -199,13 +199,13 @@ function readMessage(user, group, timestamp) {
 }
 
 function sendMessage(user, group, message) {
-    let data = {
+    var data = {
         user: user,
         group: group,
         message: message
     }
-    let str = JSON.stringify({ type: 'send_message', data: data });
-    let str = str.split("\"").join("\\\"")
+    var str = JSON.stringify({ type: 'send_message', data: data });
+    var str = str.split("\"").join("\\\"")
     axios.get(boardcastURL, {
         params: {
             tx: "\"" + str + "\""

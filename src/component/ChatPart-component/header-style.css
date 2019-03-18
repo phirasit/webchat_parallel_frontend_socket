@@ -1,0 +1,13 @@
+.header-chat {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    height: 10vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:#feb2a8;
+
+}

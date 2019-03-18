@@ -1,0 +1,13 @@
+.text-part {
+    text-align: center;
+    height: 10vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:#feb2a8;
+}
+
+.text-input .ant-input {
+    width: 400px;
+    margin: 0 10px 0 0;
+    color: #fe8a71;
+}

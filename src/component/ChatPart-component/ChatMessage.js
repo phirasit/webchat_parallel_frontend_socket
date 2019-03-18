@@ -3,6 +3,7 @@ import './message.css';
 import disImg from './img/images.png'
 import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
+// var Caller = require('../utility/callFunction');
 
 class ChatMessage extends Component {
     constructor(props) {
@@ -14,13 +15,15 @@ class ChatMessage extends Component {
             clientID: '',
             clientName: '',
             clientImg: '',
-            data: [{ clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
-            { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
-            { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
-            { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
-            { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
-            { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
-            { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' }],
+            groupName: '',
+            // data: [{ clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
+            // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
+            // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
+            // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
+            // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
+            // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
+            // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' }],
+            data: [],
             loading: false,
             hasMore: true,
         }
@@ -28,6 +31,7 @@ class ChatMessage extends Component {
 
     componentDidMount() {
         window.scrollTo(0, document.body.scrollHeight);
+        // this.state.data = Caller.getMessage(this.state.clientName, this.state.groupName, last_message = null, limit = 20)
         // this.fetchData((res) => {
         //     this.setState({
         //         data: res.results,

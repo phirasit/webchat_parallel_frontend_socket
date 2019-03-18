@@ -1,8 +1,19 @@
 .header{
     color: white;
+    background-color: darksalmon;
+    width: 100%;
+    height: 10vh;
 }
 
-.parent:hover{
-    background-color: darkgray;
+.chatlist-container{
+    height: 100vh;
 }
- 
+
+.chatlist-content{
+    height: 80vh;
+}
+
+.chatlist-footer{
+    height: 10vh;
+    background-color: darksalmon;
+}

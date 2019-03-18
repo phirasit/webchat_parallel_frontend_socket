@@ -16,6 +16,12 @@ class LoginPage extends Component {
         console.log(this.state.clientID);
     }
 
+    handleSubmit = () => {
+        if(this.state.clientID != ''){
+            
+        }
+    }
+
         render() {
             return(
                 <div className='parent1' style={{height:window.screen.height}}>

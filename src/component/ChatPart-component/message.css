@@ -20,7 +20,7 @@
 	text-align: right;
 	width: 250px;
 	height: auto;
-    background-color: #ACD1B6;
+    background-color:#f6cd61;
 }
 
 .talk-bubble-left {
@@ -29,8 +29,8 @@
 	position: relative;
 	text-align: left;
 	width: 250px;
-	height: auto;
-    background-color:#f6cd61;
+    height: auto;
+    background-color: #e7d3d3 ;
 }
 
 .round{

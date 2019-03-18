@@ -14,3 +14,14 @@
     margin: 0 10px 0 0;
     color: #fe8a71;
 }
+
+.send-button .ant-btn-primary {
+    background: #fe8a71;
+    border-color: white;
+}
+
+.send-button .ant-btn-primary:hover {
+    background: white;
+    border-color: #fe8a71;
+    color: #fe8a71;
+}

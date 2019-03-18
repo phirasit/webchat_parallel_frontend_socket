@@ -7,11 +7,11 @@ class ChatTab extends Component{
     constructor(props){
         super(props);
         this.state = {
-            chatID : '',
-            chatName : 'Chat001',
-            chatMsg : 'nahee',
-            unreadNum : 25,
-            chatThumbnail : ''
+            chatID : this.props.item.chatID,
+            chatName : this.props.item.chatName,
+            chatMsg : this.props.item.chatMsg,
+            unreadNum : this.props.item.unreadNum,
+            chatThumbnail : this.props.item.chatThumbnail
         }
     }
 

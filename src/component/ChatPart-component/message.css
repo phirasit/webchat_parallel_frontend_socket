@@ -20,7 +20,7 @@
 	text-align: right;
 	width: 250px;
 	height: auto;
-    background-color:#fe8a71;
+    background-color: #ACD1B6;
 }
 
 .talk-bubble-left {
@@ -43,12 +43,14 @@
     padding: 1em;
     text-align: left;
     line-height: 1em;
+    color: gray;
 }
 
 .talktext-right{
     padding: 1em;
     text-align: right;
     line-height: 1em;
+    color: gray;
 }
 
 .image-cropper {

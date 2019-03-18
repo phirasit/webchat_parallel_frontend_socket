@@ -81,7 +81,7 @@ class ChatMessage extends Component {
                                                 <div className='image-cropper'>
                                                     <img src={item.clientImg} ></img>
                                                 </div>
-                                                <div style={{ margin: "10px" }}>{item.clientName}</div>
+                                                <div style={{ margin: "10px", color: "grey" }}>{item.clientName}</div>
                                                 <div style={{ margin: "10px", color: "lightGray" }}>{item.time}</div>
                                             </div>
                                             <div className="talk-bubble-left tri-right round btm-left">

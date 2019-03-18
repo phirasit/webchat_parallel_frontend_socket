@@ -14,8 +14,10 @@ class ChatList extends Component {
         this.state = {
             clientID: '1234',
             chatTabList: [],
-            visible: false,
+            visible1: false,
+            visible2: false,
             groupName: '',
+            joinGroupName: '',
             clientID: '',
             chatTabList: [{ chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' },
             { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 25, chatThumbnail: 'this.props.chatThumbnail' },
@@ -34,27 +36,53 @@ class ChatList extends Component {
 
     }
 
-    showModal = () => {
+    showModal1 = () => {
         this.setState({
-            visible: true,
+            visible1: true,
         });
     }
 
-    handleOk = (e) => {
+    showModal2 = () => {
+        this.setState({
+            visible2: true,
+        });
+    }
+
+    handleOk1 = (e) => {
         console.log(this.state.groupName);
         // Caller.createNewGroup(this.state.clientID, this.state.groupName);
+
         this.setState({
-            visible: false,
+            visible1: false,
+            groupName:''
         });
     }
 
-    handleCancel = (e) => {
+    handleOk2 = (e) => {
+        console.log(this.state.joinGroupName);
+        // Caller.createNewGroup(this.state.clientID, this.state.groupName);
+
+        this.setState({
+            visible2: false,
+            joinGroupName:''
+        });
+    }
+
+    handleCancel1 = (e) => {
         console.log(e);
         this.setState({
-            visible: false,
+            visible1: false,
+            groupName: ''
         });
     }
-
+    
+    handleCancel2 = (e) => {
+        console.log(e);
+        this.setState({
+            visible2: false,
+            joinGroupName: ''
+        });
+    }
 
     onInputChange = field_name => e => {
         this.setState({ [field_name]: e.target.value })
@@ -85,17 +113,26 @@ class ChatList extends Component {
                 </div>
                 <div className='chatlist-footer'>
                     <Row style={{ paddingTop: '2vh' }}>
-                        <Button onClick={this.showModal} style={{ margin: 5 }}>Create Group</Button>
+                        <Button onClick={this.showModal1} style={{ margin: 5 }}>Create Group</Button>
                         <Modal
                             title="Please enter the group name"
-                            visible={this.state.visible}
-                            onOk={this.handleOk}
-                            onCancel={this.handleCancel}
+                            visible={this.state.visible1}
+                            onOk={this.handleOk1}
+                            onCancel={this.handleCancel1}
                         >
                             <Input placeholder="Group name" value={this.state.groupName}
                                 onChange={this.onInputChange('groupName')} />
                         </Modal>
-                        <Button style={{ margin: 5 }}>Join Group</Button>
+                        <Button onClick={this.showModal2} style={{ margin: 5 }}>Join Group</Button>
+                        <Modal
+                            title="Please enter the group name you want to join"
+                            visible={this.state.visible2}
+                            onOk={this.handleOk2}
+                            onCancel={this.handleCancel2}
+                        >
+                            <Input placeholder="Group name" value={this.state.joinGroupName}
+                                onChange={this.onInputChange('joinGroupName')} />
+                        </Modal>
                         <Button type='danger' style={{ margin: 5 }}>Logout</Button>
                     </Row>
                 </div>

@@ -3,7 +3,7 @@ import { Button, Input } from 'antd'
 import './text-part-style.css';
 import ChatMessage from './ChatMessage';
 import disImg from './img/images.png'
-// var Caller = require('../utility/callFunction');
+var Caller = require('../../utility/callFunction');
 
 
 class TextPart extends Component {
@@ -13,10 +13,10 @@ class TextPart extends Component {
             message: '',
             data: [],
             time: '',
-            clientID: '',
-            clientName: '',
+            clientID: 'test_user01',
+            clientName: 'test_user01',
             clientImg: '',
-            groupName: '',
+            groupName: 'test_group01',
         }
     }
 
@@ -25,13 +25,18 @@ class TextPart extends Component {
         console.log(this.state)
     }
 
+    handleSendMessage =(e) => {
+        Caller.sendMessage(this.state.clientName, this.state.groupName, this.state.message)
+        this.setState({message : ''})
+    }
+
     render() {
         return (
             <div className="text-part">
                 <div className="text-input send-button">
                     <Input placeholder="Message" value={this.state.message}
                         onChange={this.onInputChange('message')} />
-                    {/* <Button type="primary" onClick={Caller.sendMessage(this.state.clientName, this.state.groupName, this.state.message)}> Send </Button> */}
+                    <Button type="primary" onClick={this.handleSendMessage}> Send </Button>
                 </div>
             </div>
         )

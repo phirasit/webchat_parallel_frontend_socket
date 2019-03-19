@@ -9,7 +9,6 @@ class ChatTab extends Component {
         this.state = {
             chatID: this.props.item.chatID,
             chatName: this.props.item.chatName,
-            chatMsg: this.props.item.chatMsg,
             unreadNum: this.props.item.unreadNum,
             chatThumbnail: this.props.item.chatThumbnail
         }
@@ -28,7 +27,6 @@ class ChatTab extends Component {
                     </Col>
                     <Col span={20}>
                         <Row>{this.state.chatName}</Row>
-                        <Row>{this.state.chatMsg}</Row>
                     </Col>
                     <Col span={2}>
                         <div>

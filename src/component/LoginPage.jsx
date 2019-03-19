@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Row, Col, Card } from 'antd';
+import React,{Component} from 'react';
+import {Form, Icon, Input, Button,Row,Col,Card} from 'antd';
 import '../style-css/LoginPage.css'
-import { withRouter } from 'react-router-dom'
-
 
 class LoginPage extends Component {
-    constructor() {
+    constructor(){
         super();
         this.state = {
-            clientID: ''
+            clientID : ''
         }
     }
 
@@ -19,26 +17,22 @@ class LoginPage extends Component {
     }
 
     handleSubmit = () => {
-        if (this.state.clientID != '') {
-
+        if(this.state.clientID != ''){
+            
         }
     }
 
-    handleLogIn = (e) => {
-        this.props.history.push('/chat')
-    }
-
-    render() {
-        return (
-            <div className='parent1'>
-                <div className="header-project">PARALLEL miniproject</div>
-                <Card className='username' style={{ width: "25%" }}>
-                    <div><Input placeholder="Type your username" onChange={this.handleChange} /></div>
-                    <div style={{ margin: 20 }} onClick={this.handleLogIn}><Button>Login</Button></div>
-                </Card>
-            </div >
-        )
-    }
+        render() {
+            return(
+                <div className='parent1' style={{height:window.screen.height}}>
+                    <Card className='username'>
+                        <div><Input placeholder="Type your username" onChange={this.handleChange}/></div>
+                        <div style={{margin:20}}><Button>Login</Button></div>
+                    </Card>
+                </div>
+            )
+        }
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;
+  

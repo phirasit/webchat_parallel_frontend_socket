@@ -61,6 +61,11 @@ class ChatList extends Component {
         console.log(this.state)
     }
 
+    handleGroupList = (e) => {
+        this.props.callbackFromParent(e.target.value);
+        console.log(e.target.value)
+    }
+
     render() {
         console.log('data', this.state.chatTabList)
         return (
@@ -77,7 +82,7 @@ class ChatList extends Component {
                     <List
                         dataSource={this.state.chatTabList}
                         renderItem={item => (
-                            <ChatTab item={item}></ChatTab>
+                            <ChatTab item={item} onClick={this.handleGroupList}></ChatTab>
                         )}
                     >
                     </List>

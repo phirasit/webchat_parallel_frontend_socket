@@ -13,6 +13,7 @@
     width: 400px;
     margin: 0 10px 0 0;
     color: #fe8a71;
+    border-color: white;
 }
 
 .send-button .ant-btn-primary {

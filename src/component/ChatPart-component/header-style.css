@@ -1,7 +1,7 @@
 .header-chat {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     text-align: center;

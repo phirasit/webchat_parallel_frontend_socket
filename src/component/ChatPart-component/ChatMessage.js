@@ -37,19 +37,8 @@ class ChatMessage extends Component {
         //         data: res.results,
         //     });
         // });
+        // this.setState({data:[...data,data]})
     }
-
-    // fetchData = (callback) => {
-    //     reqwest({
-    //         url: fakeDataUrl,
-    //         type: 'json',
-    //         method: 'get',
-    //         contentType: 'application/json',
-    //         success: (res) => {
-    //             callback(res);
-    //         },
-    //     });
-    // }
 
     handleInfiniteOnLoad = () => {
         let data = this.state.data;

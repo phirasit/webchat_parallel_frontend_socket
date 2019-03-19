@@ -91,7 +91,7 @@ class ChatList extends Component {
 
 
     render() {
-        console.log('data', this.state.chatTabList)
+        // console.log('data', this.state.chatTabList)
         return (
             <div className='chatlist-container'>
                 <div className='header'> <div style={{ paddingTop: '3vh' }}>Chat</div></div>

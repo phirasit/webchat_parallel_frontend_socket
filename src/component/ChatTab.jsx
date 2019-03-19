@@ -2,22 +2,35 @@ import React, { Component } from 'react';
 import { Card, Col, Row, Badge } from 'antd';
 import tempChatTabPic from '../img/tempChatTabPic.jpg'
 import '../style-css/ChatTab.css'
+import * as Caller from '.././utility/callFunction';
+
 
 class ChatTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chatID: this.props.item.chatID,
-            chatName: this.props.item.chatName,
+            // chatID: this.props.item.chatID,
+            groupName: '12345',
+            // chatName: this.props.item.chatName,
+            clientName: '1',
             chatMsg: this.props.item.chatMsg,
             unreadNum: this.props.item.unreadNum,
-            chatThumbnail: this.props.item.chatThumbnail
+            chatThumbnail: this.props.item.chatThumbnail,
+            data: [],
         }
     }
 
+    async getMessage() {
+        let message = await Caller.getMessage(this.state.clientName, this.state.groupName)
+        console.log("success pa wa", message, "andddd", this.state.data)
+        this.setState({
+            data: message
+        });
+    }
+
     handleGroupList = (e) => {
-        this.props.callback([this.state.chatID, this.state.chatName]);
-        console.log(this.state.chatName)
+        this.getMessage()
+        this.props.callback([this.state.groupName, this.state.clientName, this.state.data]);
     }
 
     render() {

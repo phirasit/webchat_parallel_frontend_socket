@@ -32,12 +32,12 @@ class ChatMessage extends Component {
 
     async componentDidMount() {
         window.scrollTo(0, document.body.scrollHeight);
-        
+
         let message = await Caller.getMessage(this.state.clientName, this.state.groupName)
         console.log('message', message)
 
         this.setState({
-            data : message
+            data: message
         });
         // this.fetchData((res) => {
         //     this.setState({

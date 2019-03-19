@@ -4,8 +4,8 @@ import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
-var Caller = require('../utility/callFunction');
-
+import * as Caller from '../utility/callFunction'
+import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 const { Header, Footer, Content } = Layout;
 
 class ChatList extends Component {
@@ -48,20 +48,22 @@ class ChatList extends Component {
         });
     }
 
-    handleOk1 = (e) => {
+    handleOk1 = async (e) => {
         console.log(this.state.groupName);
-        // Caller.createNewGroup(this.state.clientID, this.state.groupName);
-
+        let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
+        console.log(log)
+        alert(log.log)
         this.setState({
             visible1: false,
             groupName: ''
         });
     }
 
-    handleOk2 = (e) => {
+    handleOk2 = async (e) => {
         console.log(this.state.joinGroupName);
-        // Caller.createNewGroup(this.state.clientID, this.state.groupName);
-
+        let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
+        console.log(log)
+        alert(log.log)
         this.setState({
             visible2: false,
             joinGroupName: ''

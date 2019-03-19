@@ -14,9 +14,9 @@ class TextPart extends Component {
             data: [],
             time: '',
             clientID: 'test_user01',
-            clientName: 'test_user01',
+            clientName: '',
             clientImg: '',
-            groupName: 'test_group01',
+            groupName: 'zxcv',
         }
     }
 

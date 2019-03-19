@@ -22,10 +22,16 @@ class HeaderChat extends Component {
         // Caller.leaveGroup(this.state.clientName, this.state.groupName)
     }
 
+    handleBackBtn = (e) => {
+        console.log(this.state.groupName);
+        // Caller.leaveGroup(this.state.clientName, this.state.groupName)
+    }
+
     render() {
         return (
-            <div className="header-chat">
-                <div style={{ marginRight: "25%" }}>{this.state.groupName}</div>
+            <div className="header-chat send-button">
+                <Button type="primary" style={{ marginLeft: "20px" }} onClick={this.handleBackBtn}>back</Button>
+                <div>{this.state.groupName}</div>
                 <Button type="danger" style={{ marginRight: "20px" }} onClick={this.handleLeaveBtn}>Leave Group</Button>
             </div>
         )

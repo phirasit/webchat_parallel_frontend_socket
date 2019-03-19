@@ -25,13 +25,17 @@ class TextPart extends Component {
         console.log(this.state)
     }
 
+    handleSendBtn = () => {
+        // Caller.sendMessage(this.state.clientName, this.state.groupName, this.state.message)
+    }
+
     render() {
         return (
             <div className="text-part">
                 <div className="text-input send-button">
                     <Input placeholder="Message" value={this.state.message}
                         onChange={this.onInputChange('message')} />
-                    {/* <Button type="primary" onClick={Caller.sendMessage(this.state.clientName, this.state.groupName, this.state.message)}> Send </Button> */}
+                    <Button type="primary" onClick={this.handleSendBtn}> Send </Button>
                 </div>
             </div>
         )

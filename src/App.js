@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom'
-import ChatPart from './component/ChatPart';
 import LoginPage from './component/LoginPage';
+import ActivePage from './component/ActivePage';
 
 class App extends Component {
   render() {
@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
         <div>
           <Route path="/" component={() => <LoginPage />} exact />
-          <Route path="/chat" component={() => <ChatPart />} />
+          <Route path="/chat" component={() => <ActivePage />} />
         </div>
       </div>
     )

@@ -4,7 +4,7 @@ import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
-// var Caller = require('../utility/callFunction');
+var Caller = require('../utility/callFunction');
 
 const { Header, Footer, Content } = Layout;
 

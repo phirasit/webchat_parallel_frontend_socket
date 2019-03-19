@@ -3,7 +3,8 @@ import './message.css';
 import disImg from './img/images.png'
 import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
-// var Caller = require('../utility/callFunction');
+// var Caller = require('../../utility/callFunction');
+import * as Caller from '../../utility/callFunction';
 
 class ChatMessage extends Component {
     constructor(props) {
@@ -13,9 +14,9 @@ class ChatMessage extends Component {
             isLeft: 'false',
             time: '',
             clientID: '',
-            clientName: '',
+            clientName: '1',
             clientImg: '',
-            groupName: '',
+            groupName: '12345',
             // data: [{ clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
             // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
             // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
@@ -29,9 +30,15 @@ class ChatMessage extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         window.scrollTo(0, document.body.scrollHeight);
-        // this.state.data = Caller.getMessage(this.state.clientName, this.state.groupName, last_message = null, limit = 20)
+        
+        let message = await Caller.getMessage(this.state.clientName, this.state.groupName)
+        console.log('message', message)
+
+        this.setState({
+            data : message
+        });
         // this.fetchData((res) => {
         //     this.setState({
         //         data: res.results,

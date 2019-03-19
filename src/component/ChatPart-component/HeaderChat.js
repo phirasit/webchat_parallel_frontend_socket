@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Row, Col } from 'antd'
 import './header-style.css';
-// var Caller = require('../utility/callFunction');
+var Caller = require('../../utility/callFunction');
 
 
 class HeaderChat extends Component {
@@ -12,14 +12,14 @@ class HeaderChat extends Component {
             groupName: 'Grouppppppp',
             time: '',
             clientID: '',
-            clientName: '',
+            clientName: 'USER0101',
             clientImg: '',
         }
     }
 
     handleLeaveBtn = (e) => {
         console.log(this.state.groupName);
-        // Caller.leaveGroup(this.state.clientName, this.state.groupName)
+        Caller.leaveGroup(this.state.clientName, this.state.groupName)
     }
 
     handleBackBtn = (e) => {

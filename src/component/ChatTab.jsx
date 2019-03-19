@@ -14,11 +14,14 @@ class ChatTab extends Component {
         }
     }
 
-
+    handleGroupList = (e) => {
+        this.props.callback([this.state.chatID, this.state.chatName]);
+        console.log(this.state.chatName)
+    }
 
     render() {
         return (
-            <div className='parent'>
+            <div className='parent' onClick={this.handleGroupList}>
                 <Row justify='space-around'>
                     <Col span={2}>
                         <div className='image-cropper'>

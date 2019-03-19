@@ -4,7 +4,7 @@ import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
-// var Caller = require('../utility/callFunction');
+var Caller = require('../utility/callFunction');
 
 const { Header, Footer, Content } = Layout;
 
@@ -21,14 +21,14 @@ class ChatList extends Component {
             clientID: '',
             chatTabList: [{ chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' },
             { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 25, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 422, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 1, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 7, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 49, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 100, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 245, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 64, chatThumbnail: 'this.props.chatThumbnail' },
-            { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 78, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00002', chatName: 'chat2', chatMsg: 'aaaaa', unreadNum: 422, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00003', chatName: 'chat3', chatMsg: 'aaaaa', unreadNum: 1, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00004', chatName: 'chat4', chatMsg: 'aaaaa', unreadNum: 7, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00005', chatName: 'chat5', chatMsg: 'aaaaa', unreadNum: 49, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00006', chatName: 'chat6', chatMsg: 'aaaaa', unreadNum: 100, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00007', chatName: 'chat7', chatMsg: 'aaaaa', unreadNum: 245, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00008', chatName: 'chat8', chatMsg: 'aaaaa', unreadNum: 64, chatThumbnail: 'this.props.chatThumbnail' },
+            { chatID: '00009', chatName: 'chat9', chatMsg: 'aaaaa', unreadNum: 78, chatThumbnail: 'this.props.chatThumbnail' },
             { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 79, chatThumbnail: 'this.props.chatThumbnail' },
             { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 87, chatThumbnail: 'this.props.chatThumbnail' }
             ]
@@ -54,7 +54,7 @@ class ChatList extends Component {
 
         this.setState({
             visible1: false,
-            groupName:''
+            groupName: ''
         });
     }
 
@@ -64,7 +64,7 @@ class ChatList extends Component {
 
         this.setState({
             visible2: false,
-            joinGroupName:''
+            joinGroupName: ''
         });
     }
 
@@ -75,7 +75,7 @@ class ChatList extends Component {
             groupName: ''
         });
     }
-    
+
     handleCancel2 = (e) => {
         console.log(e);
         this.setState({
@@ -86,13 +86,9 @@ class ChatList extends Component {
 
     onInputChange = field_name => e => {
         this.setState({ [field_name]: e.target.value })
-        console.log(this.state)
     }
 
-    handleGroupList = (e) => {
-        this.props.callbackFromParent(e.target.value);
-        console.log(e.target.value)
-    }
+
 
     render() {
         console.log('data', this.state.chatTabList)
@@ -110,7 +106,7 @@ class ChatList extends Component {
                     <List
                         dataSource={this.state.chatTabList}
                         renderItem={item => (
-                            <ChatTab item={item} onClick={this.handleGroupList}></ChatTab>
+                            <ChatTab item={item} callback={this.props.callback}></ChatTab>
                         )}
                     >
                     </List>

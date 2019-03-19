@@ -19,6 +19,7 @@ class ActivePage extends Component {
     }
 
     myCallback = (data) => {
+        console.log(data)
         this.setState({ groupName: data })
     }
 

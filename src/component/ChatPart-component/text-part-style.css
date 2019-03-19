@@ -1,0 +1,28 @@
+.text-part {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 10vh;
+    align-items: center;
+    background-color:#feb2a8;
+}
+
+.text-input .ant-input {
+    width: 400px;
+    margin: 0 10px 0 0;
+    color: #fe8a71;
+    border-color: white;
+}
+
+.send-button .ant-btn-primary {
+    background: #fe8a71;
+    border-color: white;
+}
+
+.send-button .ant-btn-primary:hover {
+    background: white;
+    border-color: #fe8a71;
+    color: #fe8a71;
+}

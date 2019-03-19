@@ -3,68 +3,101 @@ const hostURL = "http://parallel.ojudge.in.th/"
 const queryURL = hostURL + "abci_query"
 const boardcastURL = hostURL + "broadcast_tx_sync"
 
-function getMessage(user, group, last_message = null, limit = 20) {
-  data = {
+
+
+function convertMessage(message, userID){
+
+  /*
+  group: "12345"
+  id: "1"
+  message: "Hello world"
+  prevID: ""
+  timestamp: 0
+  user: "1"
+  */
+  // console.log(message)
+  let len = message.num_messages
+  let realMessage = message.messages
+  console.log(len, realMessage)
+  let arr_messages = []
+  for(let i = 0 ; i<len; i++){
+    arr_messages[i] = { 
+      clientName: realMessage[i].user, 
+      // clientImg: disImg, 
+      isLeft: (userID===realMessage[i].user)?"false":"true", 
+      time: '11.11', 
+      texts: realMessage[i].message
+    }
+  }
+  return arr_messages
+}
+
+
+export async function getMessage(user = null, group = null, last_message = null, limit = 20) {
+  console.log(user, group)
+
+  var data = {
     user: user,
     group: group,
     last_message: last_message,
     limit: limit
   }
-  str = JSON.stringify({ type: 'get_message', data: data });
+  var str = JSON.stringify({ type: 'get_message', data: data });
   str = str.split("\"").join("\\\"")
-  return axios.get(queryURL, {
+  const response = await axios.get(queryURL, {
     params: {
       data: "\"" + str + "\""
     }
   })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+
+      if (response.data.result.response.log == "OK") {
+        console.log("Got a message")
+        let message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
+        // let ret = { code: 1, message: message }
+        let returnMessage = convertMessage(message, user)
+        console.log(returnMessage)
+        // console.log(ret)
+        return returnMessage
+        // console.log(JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii')))
+      }
+      else {
+        let log = response.data.result.response.log
+        console.log("Error : " + log)
+        let ret = { code: 0, message: log }
+        return ret
+      }
+    
 }
 
-function getUnreadMessage(user, group) {
-  data = {
+export async function getUnreadMessage(user, group) {
+  let data = {
     user: user,
     group: group
   }
-  str = JSON.stringify({ type: 'get_unread_message', data: data });
+  let str = JSON.stringify({ type: 'get_unread_message', data: data });
   str = str.split("\"").join("\\\"")
-  axios.get(queryURL, {
+  const response = await axios.get(queryURL, {
     params: {
       // data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
       data: "\"" + str + "\""
     }
   })
-    .then(function (response) {
-      // console.log(response.data);
+    
       if (response.data.result.response.log == "OK") {
         console.log("Got a message")
-        message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
-        ret = { code: 1, message: message }
+        let message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
+        let ret = { code: 1, message: message }
         console.log(ret)
         return ret
         // console.log(JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii')))
       }
       else {
-        log = response.data.result.response.log
+        let log = response.data.result.response.log
         console.log("Error : " + log)
-        ret = { code: 0, message: log }
+        let ret = { code: 0, message: log }
         return ret
       }
-      // response.data
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+
 }
 /*
 http://parallel.ojudge.in.th/abci_query?data="{\"type\":\"get_unread_message\",\"data\":{\"user\":\"1\",\"group\":\"123\"}}"
@@ -72,12 +105,12 @@ http://parallel.ojudge.in.th/abci_query?data="{"type":"get_unread_message","data
 
 */
 
-function createNewGroup(user, group) {
-  data = {
+export function createNewGroup(user, group) {
+  let data = {
     user: user,
     group: group
   }
-  str = JSON.stringify({ type: 'create_group', data: data });
+  let str = JSON.stringify({ type: 'create_group', data: data });
   str = str.split("\"").join("\\\"")
   return axios.get(boardcastURL, {
     params: {
@@ -85,12 +118,12 @@ function createNewGroup(user, group) {
     }
   })
     .then(function (response) {
-      if(!response.data.error){
+      if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
       }
-      else{
-        console.log("ERR " +response.data.error)
+      else {
+        console.log("ERR " + response.data.error)
         return response.data.error;
       }
     })
@@ -102,12 +135,12 @@ function createNewGroup(user, group) {
     });
 }
 
-function joinGroup(user, group) {
-  data = {
+export function joinGroup(user, group) {
+  let data = {
     user: user,
     group: group
   }
-  str = JSON.stringify({ type: 'join_group', data: data });
+  let str = JSON.stringify({ type: 'join_group', data: data });
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {
     params: {
@@ -115,16 +148,16 @@ function joinGroup(user, group) {
     }
   })
     .then(function (response) {
-      if(!response.data.error){
+      if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
       }
-      else{
+      else {
         console.log("Err")
         console.log(response.data.error)
         return response.data.error;
       }
-      
+
     })
     .catch(function (error) {
       console.log(error);
@@ -135,12 +168,12 @@ function joinGroup(user, group) {
     });
 }
 
-function leaveGroup(user, group) {
-  data = {
+export function leaveGroup(user, group) {
+  let data = {
     user: user,
     group: group
   }
-  str = JSON.stringify({ type: 'leave_group', data: data });
+  let str = JSON.stringify({ type: 'leave_group', data: data });
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {
     params: {
@@ -148,11 +181,11 @@ function leaveGroup(user, group) {
     }
   })
     .then(function (response) {
-      if(!response.data.error){
+      if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
       }
-      else{
+      else {
         console.log("Err")
         console.log(response.data.error)
         return response.data.error;
@@ -166,13 +199,13 @@ function leaveGroup(user, group) {
     });
 }
 
-function readMessage(user, group, timestamp) {
-  data = {
+export function readMessage(user, group, timestamp) {
+  let data = {
     user: user,
     group: group,
     timestamp: timestamp
   }
-  str = JSON.stringify({ type: 'read_message', data: data });
+  let str = JSON.stringify({ type: 'read_message', data: data });
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {
     params: {
@@ -180,11 +213,11 @@ function readMessage(user, group, timestamp) {
     }
   })
     .then(function (response) {
-      if(!response.data.error){
+      if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
       }
-      else{
+      else {
         console.log("Err")
         console.log(response.data.error)
         return response.data.error;
@@ -198,13 +231,14 @@ function readMessage(user, group, timestamp) {
     });
 }
 
-function sendMessage(user, group, message) {
-  data = {
+export function sendMessage(user, group, message) {
+  let data = {
     user: user,
     group: group,
     message: message
   }
-  str = JSON.stringify({ type: 'send_message', data: data });
+  console.log(data)
+  let str = JSON.stringify({ type: 'send_message', data: data });
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {
     params: {
@@ -212,11 +246,13 @@ function sendMessage(user, group, message) {
     }
   })
     .then(function (response) {
-      if(!response.data.error){
+      console.log(response)
+      if (!response.data.error) {
+        console.log('PASS')
         console.log(response.data.result);
         return response.data.result;
       }
-      else{
+      else {
         console.log("Err")
         console.log(response.data.error)
         return response.data.error;
@@ -230,12 +266,13 @@ function sendMessage(user, group, message) {
     });
 }
 
-module.exports = {
-  getMessage: getMessage,
-  getUnreadMessage: getUnreadMessage,
-  createNewGroup: createNewGroup,
-  joinGroup: joinGroup,
-  leaveGroup: leaveGroup,
-  readMessage: readMessage,
-  sendMessage: sendMessage
-};
+// module.exports = {
+//   getMessage: getMessage,
+//   getUnreadMessage: getUnreadMessage,
+//   createNewGroup: createNewGroup,
+//   joinGroup: joinGroup,
+//   leaveGroup: leaveGroup,
+//   readMessage: readMessage,
+//   sendMessage: sendMessage
+// };
+

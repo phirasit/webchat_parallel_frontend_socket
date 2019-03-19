@@ -69,21 +69,20 @@ export async function getMessage(user = null, group = null, last_message = null,
     
 }
 
-export function getUnreadMessage(user, group) {
+export async function getUnreadMessage(user, group) {
   let data = {
     user: user,
     group: group
   }
   let str = JSON.stringify({ type: 'get_unread_message', data: data });
   str = str.split("\"").join("\\\"")
-  axios.get(queryURL, {
+  const response = await axios.get(queryURL, {
     params: {
       // data : '\"'+JSON.stringify({ type: 'get_unread_message', data: json })+'\"'
       data: "\"" + str + "\""
     }
   })
-    .then(function (response) {
-      // console.log(response.data);
+    
       if (response.data.result.response.log == "OK") {
         console.log("Got a message")
         let message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
@@ -98,14 +97,7 @@ export function getUnreadMessage(user, group) {
         let ret = { code: 0, message: log }
         return ret
       }
-      // response.data
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+
 }
 /*
 http://parallel.ojudge.in.th/abci_query?data="{\"type\":\"get_unread_message\",\"data\":{\"user\":\"1\",\"group\":\"123\"}}"

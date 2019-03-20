@@ -18,14 +18,13 @@ class LoginPage extends Component {
         console.log(this.state.clientID);
     }
 
-    handleSubmit = () => {
-        if (this.state.clientID != '') {
 
+    handleLogIn = () => {
+        if(this.state.clientID != ''){
+            this.props.passID(this.state.clientID);
+            this.props.history.push('/chat');
         }
-    }
-
-    handleLogIn = (e) => {
-        this.props.history.push('/chat')
+        else alert('Fill in your username');
     }
 
     render() {

@@ -5,20 +5,20 @@ import InfiniteScroll from 'react-infinite-scroller';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
 import * as Caller from '../utility/callFunction'
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
+import { withRouter } from 'react-router-dom'
+
 const { Header, Footer, Content } = Layout;
 
 class ChatList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clientID: '1234',
+            clientID: this.props.clientID,
             chatTabList: [],
             visible1: false,
             visible2: false,
             groupName: '',
             joinGroupName: '',
-            clientID: '',
             chatTabList: [{ chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' },
             { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 25, chatThumbnail: 'this.props.chatThumbnail' },
             { chatID: '00002', chatName: 'chat2', chatMsg: 'aaaaa', unreadNum: 422, chatThumbnail: 'this.props.chatThumbnail' },
@@ -33,6 +33,10 @@ class ChatList extends Component {
             { chatID: '00001', chatName: 'chat1', chatMsg: 'aaaaa', unreadNum: 87, chatThumbnail: 'this.props.chatThumbnail' }
             ]
         }
+
+    }
+
+    componentDidMount() {
 
     }
 
@@ -90,6 +94,21 @@ class ChatList extends Component {
         this.setState({ [field_name]: e.target.value })
     }
 
+    handleLogout = () => {
+        this.setState({ clientID: '' });
+        console.log(this.state.clientID);
+        this.props.history.push('/');
+    }
+
+    handleCreateGroup = () => {
+        Caller.createNewGroup(this.state.clientID, this.state.groupName);
+        console.log('new group :', this.state.groupName, 'by', this.state.clientID);
+    }
+
+    handleJoinGroup = () => {
+        Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
+        console.log(this.state.clientID, 'join', this.state.joinGroupName);
+    }
 
 
     render() {
@@ -136,7 +155,7 @@ class ChatList extends Component {
                             <Input placeholder="Group name" value={this.state.joinGroupName}
                                 onChange={this.onInputChange('joinGroupName')} />
                         </Modal>
-                        <Button type='danger' style={{ margin: 5 }}>Logout</Button>
+                        <Button type='danger' style={{ margin: 5 }} onClick={this.handleLogout}>Logout</Button>
                     </Row>
                 </div>
             </div>
@@ -144,4 +163,4 @@ class ChatList extends Component {
     }
 }
 
-export default ChatList;
+export default withRouter(ChatList);

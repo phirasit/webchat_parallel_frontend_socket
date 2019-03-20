@@ -9,11 +9,12 @@ class ActivePage extends Component {
         super(props);
         this.state = {
             time: '',
-            clientID: '1',
+            clientID: this.props.clientID,
             clientName: '1',
             groupName: '',
             activeChat: 'false',
         }
+        console.log(this.state.clientID);
     }
 
     myCallback = (data) => {
@@ -27,7 +28,7 @@ class ActivePage extends Component {
         return (
             <div className="body">
                 <div className="chat-list">
-                    <ChatList callback={this.myCallback} />
+                    <ChatList callback={this.myCallback} clientID={this.state.clientID} />
                 </div>
                 <Divider type="vertical" />
                 {

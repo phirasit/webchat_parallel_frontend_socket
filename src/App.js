@@ -12,10 +12,11 @@ class App extends Component {
 
   getLoginName = (data) => {
     this.setState({clientID: data});
-    console.log(this.state.clientID);
+    
   }
 
   render() {
+    console.log('5555555555',this.state.clientID);
     return (
       <div className="App">
         <div>

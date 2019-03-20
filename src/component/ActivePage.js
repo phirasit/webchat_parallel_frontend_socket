@@ -16,6 +16,7 @@ class ActivePage extends Component {
             clientName: 'monn',
             groupName: '',
         }
+        console.log(this.state.clientID);
     }
 
     myCallback = (data) => {

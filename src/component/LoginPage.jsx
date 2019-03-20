@@ -21,7 +21,7 @@ class LoginPage extends Component {
 
     handleLogIn = () => {
         if(this.state.clientID != ''){
-            this.props.passID('na hee');
+            this.props.passID(this.state.clientID);
             this.props.history.push('/chat');
         }
         else alert('Fill in your username');

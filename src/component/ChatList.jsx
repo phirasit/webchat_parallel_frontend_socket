@@ -14,24 +14,34 @@ class ChatList extends Component {
         super(props);
         this.state = {
             clientID: this.props.clientID,
-            chatTabList: [],
             visible1: false,
             visible2: false,
             groupName: '',
             joinGroupName: '',
-<<<<<<< HEAD
-            currentGroupList: [],
-            chatTabList: []
-=======
-            chatTabList: [],
->>>>>>> a64b992d18a4dce8d0dd81d4eacbf6259e1ce99b
         }
 
     }
 
-    componentDidMount() {
-
-    }
+    // componentDidMount() {
+    //     if(this.props.getActivePageState().activeChat == 'false'){
+    //         if(this.props.getActivePageState().leaveGroupName != ''){
+    //             for(let i in this.state.chatTabList){
+    //                 if(this.state.chatTabList[i].groupName == this.props.getActivePageState().leaveGroupName){
+    //                     this.state.chatTabList.pop(i);
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //         else {
+    //             for(let i in this.state.chatTabList){
+    //                 if(this.state.chatTabList[i].groupName == this.props.getActivePageState.groupName){
+    //                     this.state.chatTabList[i].activeChat = false ;
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     showModal1 = () => {
         this.setState({
@@ -48,33 +58,27 @@ class ChatList extends Component {
     handleOk1 = async (e) => {
         console.log(this.state.groupName);
         let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
-<<<<<<< HEAD
-        this.state.currentGroupList.push(this.state.groupName);
-=======
         const data = { groupName: this.state.groupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' }
->>>>>>> a64b992d18a4dce8d0dd81d4eacbf6259e1ce99b
         console.log(log)
         alert(log.log)
         this.setState({
             visible1: false,
-            chatTabList: [...this.state.chatTabList, data]
         });
+        this.props.handleAddChatTabList(data);
+        
     }
 
     handleOk2 = async (e) => {
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
-<<<<<<< HEAD
-        this.state.currentGroupList.push(this.state.joinGroupName);
-=======
         const data = { groupName: this.state.joinGroupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' }
->>>>>>> a64b992d18a4dce8d0dd81d4eacbf6259e1ce99b
         console.log(log)
         alert(log.log)
         this.setState({
             visible2: false,
-            chatTabList: [...this.state.chatTabList, data]
         });
+        this.props.handleAddChatTabList(data);
+        // console.log(this.props.handleAddChatTabList)
     }
 
     handleCancel1 = (e) => {
@@ -136,7 +140,7 @@ class ChatList extends Component {
                         useWindow={false}
                     ></InfiniteScroll>
                     <List
-                        dataSource={this.state.chatTabList}
+                        dataSource={this.props.chatTabList}
                         renderItem={item => (
                             <ChatTab item={item} callback={this.props.callback}></ChatTab>
                         )}

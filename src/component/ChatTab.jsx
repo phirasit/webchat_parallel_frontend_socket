@@ -40,7 +40,7 @@ class ChatTab extends Component {
                     </Col>
                     <Col span={2}>
                         <div>
-                            <Badge count={this.state.unreadNum} />
+                            {this.state.activeChat == 'false' && <Badge count={this.state.unreadNum} />}
                         </div>
                     </Col>
                 </Row>

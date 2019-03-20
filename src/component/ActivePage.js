@@ -13,13 +13,49 @@ class ActivePage extends Component {
             groupName: '',
             activeChat: 'false',
             leaveGroupName: '',
+            chatTabList:[]
         }
         console.log(this.state.clientID);
+    }
+
+    handleBackAndLeave = () => {
+
+            if(this.state.leaveGroupName !== ''){
+                //this.state.chatTabList.map(())
+                for(let i in this.state.chatTabList){
+                    if(this.state.chatTabList[i].groupName == this.state.leaveGroupName){
+                        const data = this.state.chatTabList;
+                        data.pop(i);
+                        this.setState({chatTabList:data});
+                        break;
+                    }
+                }
+            }
+            else {
+                for(let i in this.state.chatTabList){
+                    if(this.state.chatTabList[i].groupName === this.state.groupName){
+                        const data = this.state.chatTabList;
+                        data[i].activeChat = false ;
+                        this.setState({chatTabList:data});
+                        break;
+                    }
+                }
+            }
+        
+    }
+
+    handleAddChatTabList = (data) => {
+        this.setState({chatTabList:[...this.state.chatTabList, data]});
+        console.log('fff',this.state.chatTabList)
     }
 
     myCallback = (data) => {
         console.log(data)
         this.setState({ groupName: data.groupName, activeChat: data.activeChat, leaveGroupName: data.leaveGroupName })
+    }
+    
+    getActivePageState = () => {
+        return this.state ;
     }
 
     render() {
@@ -28,13 +64,13 @@ class ActivePage extends Component {
         return (
             <div className="body">
                 <div className="chat-list">
-                    <ChatList callback={this.myCallback} clientID={this.state.clientID} />
+                    <ChatList callback={this.myCallback} clientID={this.state.clientID} chatTabList={this.state.chatTabList} handleAddChatTabList={this.handleAddChatTabList}/>
                 </div>
                 <Divider type="vertical" />
                 {
                     this.state.activeChat == 'true' &&
                     (<div className="chat-part">
-                        <ChatPart data={data} callback={this.myCallback} />
+                        <ChatPart data={data} callback={this.myCallback} handleBackAndLeave={this.handleBackAndLeave} />
                     </div>)
                 }
             </div>

@@ -26,6 +26,7 @@ class HeaderChat extends Component {
         })
         const data = { leaveGroupName: this.props.groupName, activeChat: 'false' }
         this.props.callback(data);
+        this.props.handleBackAndLeave();
     }
 
     handleBackBtn = (e) => {
@@ -37,6 +38,7 @@ class HeaderChat extends Component {
         })
         const data = { groupName: this.state.groupName, activeChat: 'false' }
         this.props.callback(data);
+        this.props.handleBackAndLeave();
     }
 
     render() {

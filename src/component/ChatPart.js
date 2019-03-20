@@ -19,7 +19,7 @@ class ChatPart extends Component {
         console.log("dataaa 2 jaaaaa", data2)
         return (
             <div>
-                <HeaderChat data={data2} callback={this.props.callback} />
+                <HeaderChat data={data2} callback={this.props.callback} handleBackAndLeave={this.props.handleBackAndLeave}/>
                 <ChatMessage data={data2} />
                 <TextPart data={data2} />
             </div>

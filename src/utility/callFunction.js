@@ -226,11 +226,12 @@ export function readMessage(user, group, timestamp) {
     });
 }
 
-export function sendMessage(user, group, message) {
+export function sendMessage(user, group, message, time=null) {
   let data = {
     user: user,
     group: group,
-    message: message
+    message: message,
+    // time : time
   };
   console.log("sending  ", data);
   let str = JSON.stringify({ type: "send_message", data: data });

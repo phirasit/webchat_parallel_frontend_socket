@@ -19,9 +19,10 @@ class HeaderChat extends Component {
     }
 
     handleLeaveBtn = (e) => {
-        console.log(this.state.groupName);
+        console.log('headerChat',this.state.groupName);
         Caller.leaveGroup(this.props.data.clientID, this.props.data.groupName)
-        const data = { leaveGroupName: this.props.groupName, activeChat: 'false' }
+        const data = { leaveGroupName: this.props.data.groupName, activeChat: 'false' }
+        console.log(data);
         this.setState({
             activeChat: 'false',
             clientID: '',
@@ -32,9 +33,10 @@ class HeaderChat extends Component {
     }
 
     handleBackBtn = (e) => {
-        console.log(this.state.groupName);
+        console.log('headerChatBack',this.state.groupName);
         // Caller.leaveGroup(this.state.clientID, this.state.groupName)
         const data = { groupName: this.props.data.groupName, activeChat: 'false' }
+        console.log(data);
         this.setState({
             activeChat: 'false',
             clientID: '',

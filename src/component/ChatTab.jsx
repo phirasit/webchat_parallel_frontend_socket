@@ -22,7 +22,7 @@ class ChatTab extends Component {
         this.setState({
             activeChat: 'true'
         })
-        const data = { groupName: this.props.item.groupName, activeChat: 'true' }
+        const data = { groupName: this.state.groupName, activeChat: 'true' }
         this.props.callback(data);
     }
 
@@ -40,7 +40,7 @@ class ChatTab extends Component {
                     </Col>
                     <Col span={2}>
                         <div>
-                            {this.state.activeChat == 'false' && <Badge count={this.state.unreadNum} />}
+                            {(this.state.activeChat == 'false' || this.state.unreadNum ==0) && <Badge count={this.state.unreadNum} />}
                         </div>
                     </Col>
                 </Row>

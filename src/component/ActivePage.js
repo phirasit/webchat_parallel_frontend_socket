@@ -19,7 +19,8 @@ class ActivePage extends Component {
     }
 
     handleBackAndLeave = () => {
-
+            console.log('willLeave',this.state.chatTabList);
+            console.log('leaveeee',this.state.leaveGroupName);
             if(this.state.leaveGroupName !== ''){
                 //this.state.chatTabList.map(())
                 for(let i in this.state.chatTabList){
@@ -27,6 +28,7 @@ class ActivePage extends Component {
                         const data = this.state.chatTabList;
                         data.pop(i);
                         this.setState({chatTabList:data});
+                        console.log('hhhhhhhhhhhh',this.state.chatTabList);
                         break;
                     }
                 }
@@ -41,6 +43,7 @@ class ActivePage extends Component {
                     }
                 }
             }
+            console.log('done leaveOrBack',this.state);
         
     }
 

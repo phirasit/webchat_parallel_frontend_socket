@@ -58,7 +58,7 @@ class ChatList extends Component {
     handleOk1 = async (e) => {
         console.log(this.state.groupName);
         let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
-        const data = { groupName: this.state.groupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' }
+        const data = { groupName: this.state.groupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false' }
         console.log(log)
         alert(log.log)
         this.setState({
@@ -71,7 +71,7 @@ class ChatList extends Component {
     handleOk2 = async (e) => {
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
-        const data = { groupName: this.state.joinGroupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail' }
+        const data = { groupName: this.state.joinGroupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail',  activeChat: 'false' }
         console.log(log)
         alert(log.log)
         this.setState({

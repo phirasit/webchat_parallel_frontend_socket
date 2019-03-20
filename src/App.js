@@ -12,7 +12,6 @@ class App extends Component {
 
   getLoginName = (data) => {
     this.setState({clientID: data});
-    
   }
 
   render() {

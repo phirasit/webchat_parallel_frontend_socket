@@ -14,16 +14,8 @@ class ChatMessage extends Component {
             isLeft: 'false',
             time: '',
             clientID: '',
-            clientName: '',
             clientImg: '',
             groupName: '',
-            // data: [{ clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
-            // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
-            // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
-            // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
-            // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
-            // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
-            // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' }],
             loading: false,
             hasMore: true,
         }
@@ -31,8 +23,8 @@ class ChatMessage extends Component {
 
     async componentDidMount() {
         window.scrollTo(0, document.body.scrollHeight);
-        console.log('name:', this.state.clientName, 'group:', this.state.groupName)
-        let message = await Caller.getMessage(this.props.data.clientName, this.props.data.groupName)
+        console.log('name:', this.props.data.clientID, 'group:', this.props.data.groupName)
+        let message = await Caller.getMessage(this.props.data.clientID, this.props.data.groupName)
         console.log('message', message)
 
         this.setState({
@@ -47,7 +39,7 @@ class ChatMessage extends Component {
     }
     async componentWillReceiveProps(nextProps) {
         console.log('nextProps : ', nextProps)
-        let message = await Caller.getMessage(nextProps.data.clientName, nextProps.data.groupName)
+        let message = await Caller.getMessage(nextProps.data.clientID, nextProps.data.groupName)
         console.log('messageee', message)
 
         this.setState({
@@ -90,7 +82,7 @@ class ChatMessage extends Component {
                                                 <div className='image-cropper'>
                                                     <img src={item.clientImg} ></img>
                                                 </div>
-                                                <div style={{ margin: "10px", color: "grey" }}>{item.clientName}</div>
+                                                <div style={{ margin: "10px", color: "grey" }}>{item.clienID}</div>
                                                 <div style={{ margin: "10px", color: "lightGray" }}>{item.time}</div>
                                             </div>
                                             <div className="talk-bubble-left tri-right round btm-left">
@@ -114,11 +106,6 @@ class ChatMessage extends Component {
                                 </div>
                             )}
                         >
-                            {this.state.loading && this.state.hasMore && (
-                                <div className="demo-loading-container">
-                                    <Spin />
-                                </div>
-                            )}
                         </List>
                     </InfiniteScroll>
                 </div>

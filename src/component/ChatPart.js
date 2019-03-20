@@ -10,19 +10,18 @@ class ChatPart extends Component {
         super(props);
         this.state = {
             clientID: '',
-            clientName: '',
             groupName: '',
         }
     }
 
     render() {
-        const data2 = { clientID: this.props.data.clientID, clientName: this.props.data.clientName, groupName: this.props.data.groupName }
+        const data2 = { clientID: this.props.data.clientID, groupName: this.props.data.groupName }
         console.log("dataaa 2 jaaaaa", data2)
         return (
             <div>
                 <HeaderChat data={data2} callback={this.props.callback} />
                 <ChatMessage data={data2} />
-                <TextPart />
+                <TextPart data={data2} />
             </div>
         )
     }

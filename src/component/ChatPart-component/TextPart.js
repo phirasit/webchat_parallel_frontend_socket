@@ -13,10 +13,9 @@ class TextPart extends Component {
             message: '',
             data: [],
             time: '',
-            clientID: 'test_user01',
-            clientName: '',
+            clientID: this.props.data.clientID,
             clientImg: '',
-            groupName: 'zxcv',
+            groupName: this.props.data.groupName,
         }
     }
 
@@ -26,7 +25,7 @@ class TextPart extends Component {
     }
 
     handleSendMessage = (e) => {
-        Caller.sendMessage(this.state.clientName, this.state.groupName, this.state.message)
+        Caller.sendMessage(this.state.clientID, this.state.groupName, this.state.message)
         this.setState({ message: '' })
     }
 

@@ -14,6 +14,7 @@ class ChatTab extends Component {
             unreadNum: this.props.item.unreadNum,
             chatThumbnail: this.props.item.chatThumbnail,
             activeChat: 'false',
+            groupName: this.props.item.groupName,
         }
     }
 
@@ -35,7 +36,7 @@ class ChatTab extends Component {
                         </div>
                     </Col>
                     <Col span={20}>
-                        <Row>{this.state.chatName}</Row>
+                        <Row>{this.state.groupName}</Row>
                     </Col>
                     <Col span={2}>
                         <div>

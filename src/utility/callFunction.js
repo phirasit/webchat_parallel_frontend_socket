@@ -137,7 +137,7 @@ export async function joinGroup(user, group) {
     user: user,
     group: group
   };
-  let str = JSON.stringify({ type: "join_group", data: data });
+  let str = JSON.stringify({ type: "join_group", data: data, nonce: Math.random().toString(36).substring(7) });
   str = str.split('"').join('\\"');
   const response = await axios
     .get(boardcastURL, {
@@ -145,16 +145,16 @@ export async function joinGroup(user, group) {
         tx: '"' + str + '"'
       }
     })
-  
-      if (!response.data.error) {
-        console.log(response.data.result);
-        return response.data.result;
-      } else {
-        console.log("Err");
-        console.log(response.data.error);
-        return response.data.error;
-      }
-   
+
+  if (!response.data.error) {
+    console.log(response.data.result);
+    return response.data.result;
+  } else {
+    console.log("Err");
+    console.log(response.data.error);
+    return response.data.error;
+  }
+
 }
 
 export function leaveGroup(user, group) {
@@ -170,7 +170,7 @@ export function leaveGroup(user, group) {
         tx: '"' + str + '"'
       }
     })
-    .then(function(response) {
+    .then(function (response) {
       if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
@@ -180,10 +180,10 @@ export function leaveGroup(user, group) {
         return response.data.error;
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     })
-    .then(function() {
+    .then(function () {
       // always executed
     });
 }
@@ -202,7 +202,7 @@ export function readMessage(user, group, timestamp) {
         tx: '"' + str + '"'
       }
     })
-    .then(function(response) {
+    .then(function (response) {
       if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
@@ -212,10 +212,10 @@ export function readMessage(user, group, timestamp) {
         return response.data.error;
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     })
-    .then(function() {
+    .then(function () {
       // always executed
     });
 }
@@ -235,7 +235,7 @@ export function sendMessage(user, group, message) {
         tx: '"' + str + '"'
       }
     })
-    .then(function(response) {
+    .then(function (response) {
       console.log(response);
       if (!response.data.error) {
         console.log("PASS");
@@ -247,10 +247,10 @@ export function sendMessage(user, group, message) {
         return response.data.error;
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     })
-    .then(function() {
+    .then(function () {
       // always executed
     });
 }

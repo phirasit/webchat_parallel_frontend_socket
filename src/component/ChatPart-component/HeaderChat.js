@@ -10,26 +10,33 @@ class HeaderChat extends Component {
         super(props);
         this.state = {
             clientID: '',
-            clientName: '',
             groupName: '',
             clientImg: '',
             time: '',
+            activeChat: '',
+            leaveGroupName: '',
         }
     }
 
     handleLeaveBtn = (e) => {
         console.log(this.state.groupName);
-        Caller.leaveGroup(this.state.clientName, this.state.groupName)
+        Caller.leaveGroup(this.state.clientID, this.props.data.groupName)
+        this.setState({
+            activeChat: 'false'
+        })
+        const data = { leaveGroupName: this.props.groupName, activeChat: 'false' }
+        this.props.callback(data);
     }
 
     handleBackBtn = (e) => {
         console.log(this.state.groupName);
-        // Caller.leaveGroup(this.state.clientName, this.state.groupName)
+        // Caller.leaveGroup(this.state.clientID, this.state.groupName)
         this.setState({
-            groupName: ''
+            groupName: '',
+            activeChat: 'false'
         })
-        this.props.callback('');
-
+        const data = { groupName: this.state.groupName, activeChat: 'false' }
+        this.props.callback(data);
     }
 
     render() {

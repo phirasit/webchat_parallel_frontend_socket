@@ -10,20 +10,20 @@ class ActivePage extends Component {
         this.state = {
             time: '',
             clientID: this.props.clientID,
-            clientName: '1',
             groupName: '',
             activeChat: 'false',
+            leaveGroupName: '',
         }
         console.log(this.state.clientID);
     }
 
     myCallback = (data) => {
         console.log(data)
-        this.setState({ groupName: data.groupName, activeChat: data.activeChat })
+        this.setState({ groupName: data.groupName, activeChat: data.activeChat, leaveGroupName: data.leaveGroupName })
     }
 
     render() {
-        const data = { clientID: this.state.clientID, clientName: this.state.clientName, groupName: this.state.groupName }
+        const data = { clientID: this.state.clientID, groupName: this.state.groupName }
         console.log("dataaa", data)
         return (
             <div className="body">

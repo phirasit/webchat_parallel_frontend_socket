@@ -9,28 +9,21 @@ class ChatTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // chatID: this.props.item.chatID,
             groupName: '12345',
-            // chatName: this.props.item.chatName,
             clientName: '1',
             chatMsg: this.props.item.chatMsg,
             unreadNum: this.props.item.unreadNum,
             chatThumbnail: this.props.item.chatThumbnail,
-            data: [],
+            activeChat: 'false',
         }
     }
 
-    async getMessage() {
-        let message = await Caller.getMessage(this.state.clientName, this.state.groupName)
-        console.log("success pa wa", message, "andddd", this.state.data)
-        this.setState({
-            data: message
-        });
-    }
-
     handleGroupList = (e) => {
-        this.getMessage()
-        this.props.callback([this.state.groupName, this.state.clientName, this.state.data]);
+        this.setState({
+            activeChat: 'true'
+        })
+        const data = { groupName: this.state.groupName, activeChat: 'true' }
+        this.props.callback(data);
     }
 
     render() {

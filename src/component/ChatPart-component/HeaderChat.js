@@ -5,15 +5,15 @@ var Caller = require('../../utility/callFunction');
 
 
 class HeaderChat extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            groupID: '',
-            groupName: 'Grouppppppp',
-            time: '',
             clientID: '',
-            clientName: 'USER0101',
+            clientName: '',
+            groupName: '',
             clientImg: '',
+            time: '',
         }
     }
 
@@ -25,13 +25,18 @@ class HeaderChat extends Component {
     handleBackBtn = (e) => {
         console.log(this.state.groupName);
         // Caller.leaveGroup(this.state.clientName, this.state.groupName)
+        this.setState({
+            groupName: ''
+        })
+        this.props.callback('');
+
     }
 
     render() {
         return (
             <div className="header-chat send-button">
                 <Button type="primary" style={{ marginLeft: "20px" }} onClick={this.handleBackBtn}>back</Button>
-                <div>{this.state.groupName}</div>
+                <div>{this.props.data.groupName}</div>
                 <Button type="danger" style={{ marginRight: "20px" }} onClick={this.handleLeaveBtn}>Leave Group</Button>
             </div>
         )

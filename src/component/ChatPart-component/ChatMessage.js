@@ -14,9 +14,9 @@ class ChatMessage extends Component {
             isLeft: 'false',
             time: '',
             clientID: '',
-            clientName: '1',
+            clientName: '',
             clientImg: '',
-            groupName: '12345',
+            groupName: '',
             // data: [{ clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
             // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' },
             // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
@@ -24,7 +24,6 @@ class ChatMessage extends Component {
             // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
             // { clientName: 'mon', clientImg: disImg, isLeft: 'false', time: '11.11', texts: 'right test' },
             // { clientName: 'mild', clientImg: disImg, isLeft: 'true', time: '11.11', texts: 'left test' }],
-            data: [],
             loading: false,
             hasMore: true,
         }
@@ -32,8 +31,8 @@ class ChatMessage extends Component {
 
     async componentDidMount() {
         window.scrollTo(0, document.body.scrollHeight);
-
-        let message = await Caller.getMessage(this.state.clientName, this.state.groupName)
+        console.log('name:', this.state.clientName, 'group:', this.state.groupName)
+        let message = await Caller.getMessage(this.props.data.clientName, this.props.data.groupName)
         console.log('message', message)
 
         this.setState({
@@ -45,6 +44,15 @@ class ChatMessage extends Component {
         //     });
         // });
         // this.setState({data:[...data,data]})
+    }
+    async componentWillReceiveProps(nextProps) {
+        console.log('nextProps : ', nextProps)
+        let message = await Caller.getMessage(nextProps.data.clientName, nextProps.data.groupName)
+        console.log('messageee', message)
+
+        this.setState({
+            data: message
+        });
     }
 
     handleInfiniteOnLoad = () => {

@@ -22,7 +22,7 @@ class ChatTab extends Component {
         this.setState({
             activeChat: 'true'
         })
-        const data = { groupName: this.state.groupName, activeChat: 'true' }
+        const data = { groupName: this.props.item.groupName, activeChat: 'true' }
         this.props.callback(data);
     }
 

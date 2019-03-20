@@ -25,7 +25,7 @@ class TextPart extends Component {
     }
 
     handleSendMessage = (e) => {
-        Caller.sendMessage(this.state.clientID, this.state.groupName, this.state.message)
+        Caller.sendMessage(this.props.data.clientID, this.props.data.groupName, this.state.message)
         this.setState({ message: '' })
     }
 

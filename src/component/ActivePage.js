@@ -30,7 +30,7 @@ class ActivePage extends Component {
                 <div className="chat-list">
                     <ChatList callback={this.myCallback} clientID={this.state.clientID} />
                 </div>
-                <Divider type="vertical" />
+                {/* <Divider type="vertical" /> */}
                 {
                     this.state.activeChat == 'true' &&
                     (<div className="chat-part">

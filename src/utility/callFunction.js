@@ -137,17 +137,22 @@ export async function joinGroup(user, group) {
     user: user,
     group: group
   };
-  let str = JSON.stringify({ type: "join_group", data: data, nonce: Math.random().toString(36).substring(7) });
-  str = str.split('"').join('\\"');
+  let nonce = Math.random().toString(36).substring(7);
+  console.log(nonce)
+  console.log(user, group)
+  // let str = JSON.stringify({ type: "join_group", data: data, nonce: nonce });
+  let str = JSON.stringify({ type: "join_group", data: data });
+  str = str.split('\"').join('\\"');
   const response = await axios
     .get(boardcastURL, {
       params: {
-        tx: '"' + str + '"'
+        tx: '\"' + str + '\"'
       }
     })
 
   if (!response.data.error) {
     console.log(response.data.result);
+    console.log(response)
     return response.data.result;
   } else {
     console.log("Err");
@@ -162,6 +167,7 @@ export function leaveGroup(user, group) {
     user: user,
     group: group
   };
+  console.log('user:', user, 'group:', group)
   let str = JSON.stringify({ type: "leave_group", data: data });
   str = str.split('"').join('\\"');
   axios
@@ -226,7 +232,7 @@ export function sendMessage(user, group, message) {
     group: group,
     message: message
   };
-  console.log(data);
+  console.log("sending  ", data);
   let str = JSON.stringify({ type: "send_message", data: data });
   str = str.split('"').join('\\"');
   axios

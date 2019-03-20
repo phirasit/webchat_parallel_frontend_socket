@@ -3,8 +3,8 @@ import './message.css';
 import disImg from './img/images.png'
 import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
-// var Caller = require('../../utility/callFunction');
 import * as Caller from '../../utility/callFunction';
+import ReactDOM from 'react-dom';
 
 class ChatMessage extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class ChatMessage extends Component {
             isLeft: 'false',
             time: '',
             clientID: '',
-            clientImg: '',
+            clientImg: disImg,
             groupName: '',
             loading: false,
             hasMore: true,
@@ -22,7 +22,6 @@ class ChatMessage extends Component {
     }
 
     async componentDidMount() {
-        window.scrollTo(0, document.body.scrollHeight);
         console.log('name:', this.props.data.clientID, 'group:', this.props.data.groupName)
         let message = await Caller.getMessage(this.props.data.clientID, this.props.data.groupName)
         console.log('message', message)
@@ -30,13 +29,10 @@ class ChatMessage extends Component {
         this.setState({
             data: message
         });
-        // this.fetchData((res) => {
-        //     this.setState({
-        //         data: res.results,
-        //     });
-        // });
-        // this.setState({data:[...data,data]})
+        this.scrollBottom()
+
     }
+
     async componentWillReceiveProps(nextProps) {
         console.log('nextProps : ', nextProps)
         let message = await Caller.getMessage(nextProps.data.clientID, nextProps.data.groupName)
@@ -45,6 +41,7 @@ class ChatMessage extends Component {
         this.setState({
             data: message
         });
+        this.scrollBottom()
     }
 
     handleInfiniteOnLoad = () => {
@@ -61,28 +58,41 @@ class ChatMessage extends Component {
             return;
         }
     }
+
+    scrollBottom = () => {
+        console.log('fffff')
+        const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer);
+        if (messagesContainer != null) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+
     render() {
         return (
             <div className="message-part">
-                <div className="demo-infinite-container" style={{ overflow: 'auto' }}>
+                <div className="demo-infinite-container" style={{ overflow: 'auto' }}
+                    ref={el => {
+                        this.messageContainer = el;
+                    }}
+                >
+
                     <InfiniteScroll
                         initialLoad={false}
-                        pageStart={0}
-                        loadMore={this.handleInfiniteOnLoad}
-                        hasMore={!this.state.loading && this.state.hasMore}
+                        pageStart={1}
                         useWindow={false}
                     >
                         <List
                             dataSource={this.state.data}
-                            renderItem={item => (
-                                <div>
+                            renderItem={item => {
+                                console.log(item)
+                                return (<div>
                                     {item.isLeft == "true" && (
                                         <div>
                                             <div className="single-message">
                                                 <div className='image-cropper'>
                                                     <img src={item.clientImg} ></img>
                                                 </div>
-                                                <div style={{ margin: "10px", color: "grey" }}>{item.clienID}</div>
+                                                <div style={{ margin: "10px", color: "grey" }}>{item.clientName}</div>
                                                 <div style={{ margin: "10px", color: "lightGray" }}>{item.time}</div>
                                             </div>
                                             <div className="talk-bubble-left tri-right round btm-left">
@@ -103,8 +113,8 @@ class ChatMessage extends Component {
                                         </div>
                                     )
                                     }
-                                </div>
-                            )}
+                                </div>)
+                            }}
                         >
                         </List>
                     </InfiniteScroll>

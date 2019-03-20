@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
 import { withRouter } from 'react-router-dom'
-var Caller = require('../utility/callFunction');
+import * as Caller from '../utility/callFunction'
 
 const { Header, Footer, Content } = Layout;
 
@@ -36,6 +36,10 @@ class ChatList extends Component {
 
     }
 
+    componentDidMount(){
+
+    }
+
     showModal1 = () => {
         this.setState({
             visible1: true,
@@ -51,21 +55,28 @@ class ChatList extends Component {
     handleOk1 = (e) => {
         console.log(this.state.groupName);
         // Caller.createNewGroup(this.state.clientID, this.state.groupName);
-
-        this.setState({
-            visible1: false,
-            groupName: ''
-        });
+        
+        if(this.state.groupName != ''){
+            this.handleCreateGroup();
+            this.setState({
+                visible1: false,
+                groupName: ''
+            });
+        }
+        else alert('Please fill in the group name you want to create')
     }
 
     handleOk2 = (e) => {
         console.log(this.state.joinGroupName);
         // Caller.createNewGroup(this.state.clientID, this.state.groupName);
-
-        this.setState({
-            visible2: false,
-            joinGroupName: ''
-        });
+        if(this.state.joinGroupName != ''){
+            this.handleJoinGroup();
+            this.setState({
+                visible2: false,
+                joinGroupName: ''
+            });
+        }
+        else alert('Please fill in the group name you want to join')
     }
 
     handleCancel1 = (e) => {
@@ -94,6 +105,15 @@ class ChatList extends Component {
         this.props.history.push('/');
     }
 
+    handleCreateGroup = () => {
+        Caller.createNewGroup(this.state.clientID,this.state.groupName);
+        console.log('new group :',this.state.groupName,'by',this.state.clientID);
+    }
+
+    handleJoinGroup = () => {
+        Caller.joinGroup(this.state.clientID,this.state.joinGroupName);
+        console.log(this.state.clientID,'join',this.state.joinGroupName);
+    }
 
 
     render() {

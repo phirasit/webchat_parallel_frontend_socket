@@ -1,5 +1,6 @@
 const axios = require('axios');
 const hostURL = "http://parallel.ojudge.in.th/"
+// const hostURL = "dgo.ojudge.in.th:8080/"
 const queryURL = hostURL + "abci_query"
 const boardcastURL = hostURL + "broadcast_tx_sync"
 
@@ -23,10 +24,10 @@ function convertMessage(message, userID) {
   for (let i = 0; i < len; i++) {
     arr_messages[i] = {
       clientName: realMessage[i].user,
-      // clientImg: disImg, 
       isLeft: (userID === realMessage[i].user) ? "false" : "true",
       time: realMessage[i].time,
-      texts: realMessage[i].message
+      texts: realMessage[i].message, 
+      timestamp : realMessage[i].timestamp
     }
   }
   return arr_messages
@@ -36,7 +37,6 @@ function generateNonce() {
   let data = Math.random().toString(36).substring(7);
   let buff = new Buffer(data);
   let base64data = buff.toString('base64');
-  // console.log(data, "   ", base64data);
   return base64data;
 }
 
@@ -91,7 +91,7 @@ export async function getUnreadMessage(user, group) {
   })
 
   if (response.data.result.response.log === "OK") {
-    console.log("Got a message")
+    // console.log("Got a message")
     let message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
     let ret = { code: 1, message: message }
     console.log(ret)
@@ -203,7 +203,9 @@ export function readMessage(user, group, timestamp) {
     group: group,
     timestamp: timestamp
   }
-  let str = JSON.stringify({ type: 'read_message', data: data });
+  console.log("reading", data)
+  let nonce = generateNonce()
+  let str = JSON.stringify({ type: 'read_message', data: data , nonce : nonce });
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {
     params: {
@@ -267,13 +269,4 @@ export function sendMessage(user, group, message) {
     });
 }
 
-// module.exports = {
-//   getMessage: getMessage,
-//   getUnreadMessage: getUnreadMessage,
-//   createNewGroup: createNewGroup,
-//   joinGroup: joinGroup,
-//   leaveGroup: leaveGroup,
-//   readMessage: readMessage,
-//   sendMessage: sendMessage
-// };
 

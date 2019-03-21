@@ -39,6 +39,10 @@ class ChatTab extends Component {
         this.interval = setInterval(() => this.getUnreadNum(), 1500);
     }
 
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
     render() {
         return (
             <div className='parent' onClick={this.handleGroupList}>
@@ -54,7 +58,7 @@ class ChatTab extends Component {
                     <Col span={2}>
                         <div>
                             {
-                                (this.state.activeChat === 'false' || this.state.unreadNum === 0) &&
+                                (this.state.activeChat === 'false' || this.state.unreadNum !== 0) &&
                                 <Badge count={this.state.unreadNum} />
                             }
                         </div>

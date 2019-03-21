@@ -60,26 +60,33 @@ class ChatList extends Component {
         let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
         const data = { groupName: this.state.groupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
         console.log(log)
-        // alert(log.log)
+        if(log.log != 0 ) alert(log.log)
         this.setState({
             visible1: false,
             groupName: ''
         });
-        this.props.handleAddChatTabList(data);
-
+        if(log.code == 0)
+            this.props.handleAddChatTabList(data);
+        
     }
 
-    handleOk2 = async (e) => {
+    handleOk2 = async (e) => {  //join
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
         const data = { groupName: this.state.joinGroupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
         console.log(log)
-        // alert(log.log)
+        if(log.log != 0 )
+            alert(log.log)
         this.setState({
             visible2: false,
             joinGroupName: ''
         });
+        let foundExist = log.log.indexOf('exist') != -1 
+        if(foundExist)
+            return
         this.props.handleAddChatTabList(data);
+        console.log(foundExist)
+        //does not exist 
         // console.log(this.props.handleAddChatTabList)
     }
 

@@ -44,7 +44,7 @@ class HeaderChat extends Component {
             groupName: '',
         })
         this.props.callback(data);
-        this.props.handleBackAndLeave();
+        // this.props.handleBackAndLeave();
     }
 
     render() {

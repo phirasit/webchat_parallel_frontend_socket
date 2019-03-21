@@ -51,6 +51,10 @@ class ChatMessage extends Component {
 
             this.scrollBottom()
         }
+        let len = message.length;
+        let lastTimestamp = message[len-1].timestamp;
+        console.log('timestamp ==> ', len , " ", lastTimestamp)
+        Caller.readMessage(this.state.clientID, this.state.groupName, lastTimestamp)
     }
 
     async componentWillReceiveProps(nextProps) {

@@ -63,6 +63,7 @@ class ChatList extends Component {
         alert(log.log)
         this.setState({
             visible1: false,
+            groupName : ''
         });
         this.props.handleAddChatTabList(data);
         
@@ -76,6 +77,7 @@ class ChatList extends Component {
         alert(log.log)
         this.setState({
             visible2: false,
+            joinGroupName : ''
         });
         this.props.handleAddChatTabList(data);
         // console.log(this.props.handleAddChatTabList)

@@ -21,7 +21,7 @@ class HeaderChat extends Component {
     handleLeaveBtn = (e) => {
         console.log('headerChat',this.state.groupName);
         Caller.leaveGroup(this.props.data.clientID, this.props.data.groupName)
-        const data = { leaveGroupName: this.props.data.groupName, activeChat: 'false' }
+        const data = { leaveGroupName: this.props.data.groupName, activeChat: 'false', groupName: this.props.data.groupName }
         console.log(data);
         this.setState({
             activeChat: 'false',

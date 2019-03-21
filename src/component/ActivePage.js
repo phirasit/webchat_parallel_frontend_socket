@@ -54,7 +54,7 @@ class ActivePage extends Component {
 
     myCallback = (data) => {
         console.log(data)
-        this.setState({ groupName: data.groupName, activeChat: data.activeChat, leaveGroupName: data.leaveGroupName })
+        this.setState({ groupName: data.groupName, activeChat: data.activeChat, leaveGroupName: data.groupName })
     }
     
     getActivePageState = () => {

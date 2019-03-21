@@ -32,6 +32,13 @@ function convertMessage(message, userID){
   return arr_messages
 }
 
+function generateNonce(){
+  let data = Math.random().toString(36).substring(7);  
+  let buff = new Buffer(data);  
+  let base64data = buff.toString('base64');
+  console.log(data, "   ", base64data);
+  return base64data;
+}
 
 export async function getMessage(user = null, group = null, last_message = null, limit = 20) {
   console.log(user, group)
@@ -105,19 +112,20 @@ http://parallel.ojudge.in.th/abci_query?data="{"type":"get_unread_message","data
 
 */
 
-export function createNewGroup(user, group) {
+export async function createNewGroup(user, group) {
   let data = {
     user: user,
     group: group
   }
-  let str = JSON.stringify({ type: 'create_group', data: data });
+  let nonce = generateNonce()
+  let str = JSON.stringify({ type: 'create_group', data: data , nonce : nonce});
   str = str.split("\"").join("\\\"")
-  return axios.get(boardcastURL, {
+  const response = await axios.get(boardcastURL, {
     params: {
       tx: "\"" + str + "\""
     }
   })
-    .then(function (response) {
+
       if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
@@ -126,28 +134,25 @@ export function createNewGroup(user, group) {
         console.log("ERR " + response.data.error)
         return response.data.error;
       }
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+    
 }
 
-export function joinGroup(user, group) {
+export async function joinGroup(user, group) {
   let data = {
     user: user,
     group: group
   }
-  let str = JSON.stringify({ type: 'join_group', data: data });
+  let nonce = generateNonce();
+  // let str = JSON.stringify({ type: 'join_group', data: data });
+  let str = JSON.stringify({ type: 'join_group', data: data , nonce : nonce});
+
   str = str.split("\"").join("\\\"")
-  axios.get(boardcastURL, {
+  const response = await axios.get(boardcastURL, {
     params: {
       tx: "\"" + str + "\""
     }
   })
-    .then(function (response) {
+   
       if (!response.data.error) {
         console.log(response.data.result);
         return response.data.result;
@@ -157,15 +162,6 @@ export function joinGroup(user, group) {
         console.log(response.data.error)
         return response.data.error;
       }
-
-    })
-    .catch(function (error) {
-      console.log(error);
-      console.log("ERRRRRRRRRRRRRRR")
-    })
-    .then(function () {
-      // always executed
-    });
 }
 
 export function leaveGroup(user, group) {
@@ -173,7 +169,8 @@ export function leaveGroup(user, group) {
     user: user,
     group: group
   }
-  let str = JSON.stringify({ type: 'leave_group', data: data });
+  let nonce = generateNonce();
+  let str = JSON.stringify({ type: 'leave_group', data: data , nonce : nonce});
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {
     params: {

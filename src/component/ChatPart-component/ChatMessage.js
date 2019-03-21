@@ -33,6 +33,13 @@ class ChatMessage extends Component {
 
     }
 
+    // componentDidMount() {
+    //     this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+    //   }
+    //   componentWillUnmount() {
+    //     clearInterval(this.interval);
+    //   }
+
     async componentWillReceiveProps(nextProps) {
         console.log('nextProps : ', nextProps)
         let message = await Caller.getMessage(nextProps.data.clientID, nextProps.data.groupName)

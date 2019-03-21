@@ -1,5 +1,6 @@
 const axios = require('axios');
 const hostURL = "http://parallel.ojudge.in.th/"
+// const hostURL = "dgo.ojudge.in.th:8080/"
 const queryURL = hostURL + "abci_query"
 const boardcastURL = hostURL + "broadcast_tx_sync"
 

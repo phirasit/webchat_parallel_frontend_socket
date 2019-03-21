@@ -17,7 +17,7 @@ class ChatMessage extends Component {
             clientImg: disImg,
             groupName: '',
             loading: false,
-            hasMore: true,
+            hasMore: true
         }
     }
 
@@ -27,19 +27,32 @@ class ChatMessage extends Component {
         console.log('message', message)
 
         this.setState({
-            data: message
+            data: message,
+            clientID: this.props.data.clientID,
+            groupName: this.props.data.groupName
         });
         this.scrollBottom()
-
+        var getMessageTimer = setInterval(this.updateMessage(), 5000);
     }
 
+    async updateMessage() {
+        console.log("try to update message ", this.state.clientID, "  ", this.state.groupName)
+        let message = await Caller.getMessage(this.state.clientID, this.state.groupName)
+        console.log('messageee', message)
+
+        this.setState({
+            data: message
+        });
+    }
     async componentWillReceiveProps(nextProps) {
         console.log('nextProps : ', nextProps)
         let message = await Caller.getMessage(nextProps.data.clientID, nextProps.data.groupName)
         console.log('messageee', message)
 
         this.setState({
-            data: message
+            data: message,
+            clientID: this.props.data.clientID,
+            groupName: this.props.data.groupName
         });
         this.scrollBottom()
     }
@@ -62,6 +75,7 @@ class ChatMessage extends Component {
     scrollBottom = () => {
         console.log('fffff')
         const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer);
+        console.log('tessss', this.messageContainer)
         if (messagesContainer != null) {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
@@ -69,8 +83,8 @@ class ChatMessage extends Component {
 
     render() {
         return (
-            <div className="message-part">
-                <div className="demo-infinite-container" style={{ overflow: 'auto' }}
+            <div className="message-part" >
+                <div className="demo-infinite-container" style={{ overflow: 'auto', flexGrow: "2" }}
                     ref={el => {
                         this.messageContainer = el;
                     }}

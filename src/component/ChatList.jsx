@@ -58,22 +58,22 @@ class ChatList extends Component {
     handleOk1 = async (e) => {
         console.log(this.state.groupName);
         let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
-        const data = { groupName: this.state.groupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false' }
+        const data = { groupName: this.state.groupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false' }
         console.log(log)
-        alert(log.log)
+        // alert(log.log)
         this.setState({
             visible1: false,
         });
         this.props.handleAddChatTabList(data);
-        
+
     }
 
     handleOk2 = async (e) => {
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
-        const data = { groupName: this.state.joinGroupName, unreadNum: 10, chatThumbnail: 'this.props.chatThumbnail',  activeChat: 'false' }
+        const data = { groupName: this.state.joinGroupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false' }
         console.log(log)
-        alert(log.log)
+        // alert(log.log)
         this.setState({
             visible2: false,
         });
@@ -119,10 +119,10 @@ class ChatList extends Component {
 
     handleUpdateChatTabList = () => {
         let list = [];
-        for(var i in this.state.currentGroupList){
-            list.push({chatName: i, unreadNum: Object.keys(Caller.getUnreadMessage(this.state.clientID,i).message).length})
+        for (var i in this.state.currentGroupList) {
+            list.push({ chatName: i, unreadNum: Object.keys(Caller.getUnreadMessage(this.state.clientID, i).message).length })
         }
-        this.setState({chatTabList: list});
+        this.setState({ chatTabList: list });
     }
 
 

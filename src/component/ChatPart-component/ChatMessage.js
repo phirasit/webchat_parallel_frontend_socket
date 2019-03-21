@@ -21,6 +21,14 @@ class ChatMessage extends Component {
         }
     }
 
+    async updateMessage(){
+        console.log('updating ==> ', 'name:', this.props.data.clientID, 'group:', this.props.data.groupName)
+        let message = await Caller.getMessage(this.props.data.clientID, this.props.data.groupName)
+        this.setState({
+            data: message
+        });
+    }
+
     async componentDidMount() {
         console.log('name:', this.props.data.clientID, 'group:', this.props.data.groupName)
         let message = await Caller.getMessage(this.props.data.clientID, this.props.data.groupName)
@@ -30,15 +38,17 @@ class ChatMessage extends Component {
             data: message
         });
         this.scrollBottom()
-
+        this.interval = setInterval(() => this.updateMessage(), 2000);
     }
+
+   
 
     // componentDidMount() {
     //     this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
     //   }
-    //   componentWillUnmount() {
-    //     clearInterval(this.interval);
-    //   }
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
 
     async componentWillReceiveProps(nextProps) {
         console.log('nextProps : ', nextProps)

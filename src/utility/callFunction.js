@@ -18,7 +18,7 @@ function convertMessage(message, userID){
   // console.log(message)
   let len = message.num_messages
   let realMessage = message.messages
-  console.log(len, realMessage)
+  // console.log(len, realMessage)
   let arr_messages = []
   for(let i = 0 ; i<len; i++){
     arr_messages[i] = { 
@@ -36,7 +36,7 @@ function generateNonce(){
   let data = Math.random().toString(36).substring(7);  
   let buff = new Buffer(data);  
   let base64data = buff.toString('base64');
-  console.log(data, "   ", base64data);
+  // console.log(data, "   ", base64data);
   return base64data;
 }
 
@@ -58,7 +58,7 @@ export async function getMessage(user = null, group = null, last_message = null,
   })
 
       if (response.data.result.response.log == "OK") {
-        console.log("Got a message")
+        // console.log("Got a message")
         let message = JSON.parse(Buffer.from(response.data.result.response.value, 'base64').toString('ascii'))
         // let ret = { code: 1, message: message }
         let returnMessage = convertMessage(message, user)
@@ -142,6 +142,7 @@ export async function joinGroup(user, group) {
     user: user,
     group: group
   }
+  console.log("joining ", user, " ", group)
   let nonce = generateNonce();
   // let str = JSON.stringify({ type: 'join_group', data: data });
   let str = JSON.stringify({ type: 'join_group', data: data , nonce : nonce});
@@ -158,7 +159,7 @@ export async function joinGroup(user, group) {
         return response.data.result;
       }
       else {
-        console.log("Err")
+        // console.log("Err")
         console.log(response.data.error)
         return response.data.error;
       }
@@ -183,7 +184,7 @@ export function leaveGroup(user, group) {
         return response.data.result;
       }
       else {
-        console.log("Err")
+        // console.log("Err")
         console.log(response.data.error)
         return response.data.error;
       }

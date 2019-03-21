@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, Badge } from 'antd';
+import { Col, Row, Badge } from 'antd';
 import tempChatTabPic from '../img/tempChatTabPic.jpg'
 import '../style-css/ChatTab.css'
 import * as Caller from '.././utility/callFunction';
@@ -11,7 +11,7 @@ class ChatTab extends Component {
         this.state = {
             chatID: this.props.item.chatID,
             chatName: this.props.item.chatName,
-            unreadNum: this.props.item.unreadNum,
+            unreadNum: 0,
             chatThumbnail: this.props.item.chatThumbnail,
             activeChat: 'false',
             groupName: this.props.item.groupName,
@@ -22,8 +22,21 @@ class ChatTab extends Component {
         this.setState({
             activeChat: 'true'
         })
-        const data = { groupName: this.state.groupName, activeChat: 'true' }
+        const data = { groupName: this.state.groupName, activeChat: 'true', }
         this.props.callback(data);
+    }
+
+    async getUnreadNum() {
+        console.log('unreadd ===> ', 'name:', this.props.item.clientID, 'group:', this.props.item.groupName)
+        let unread = await Caller.getUnreadMessage(this.props.item.clientID, this.props.item.groupName)
+        console.log('unreadd', unread, 'num===', unread.message.num_messages)
+        this.setState({
+            unreadNum: unread.message.num_messages
+        });
+    }
+
+    async componentDidMount() {
+        this.interval = setInterval(() => this.getUnreadNum(), 1500);
     }
 
     render() {
@@ -40,7 +53,10 @@ class ChatTab extends Component {
                     </Col>
                     <Col span={2}>
                         <div>
-                            {(this.state.activeChat == 'false' || this.state.unreadNum ==0) && <Badge count={this.state.unreadNum} />}
+                            {
+                                (this.state.activeChat === 'false' || this.state.unreadNum === 0) &&
+                                <Badge count={this.state.unreadNum} />
+                            }
                         </div>
                     </Col>
                 </Row>

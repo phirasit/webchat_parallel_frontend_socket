@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Input } from 'antd'
 import './text-part-style.css';
-import ChatMessage from './ChatMessage';
-import disImg from './img/images.png'
 var Caller = require('../../utility/callFunction');
 
 
@@ -29,13 +27,21 @@ class TextPart extends Component {
         this.setState({ message: '' })
     }
 
+    handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            console.log('enterrrrrrr')
+            Caller.sendMessage(this.props.data.clientID, this.props.data.groupName, this.state.message)
+            this.setState({ message: '' })
+        }
+    }
+
     render() {
         return (
             <div className="text-part">
                 <div className="text-input send-button">
                     <Input placeholder="Message" value={this.state.message}
-                        onChange={this.onInputChange('message')} />
-                    <Button type="primary" onClick={this.handleSendMessage}> Send </Button>
+                        onChange={this.onInputChange('message')} onKeyPress={this.handleEnter} />
+                    <Button type="primary" onClick={this.handleSendMessage} > Send </Button>
                 </div>
             </div>
         )

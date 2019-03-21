@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Button, Input, Divider } from 'antd'
 import '../style-css/body.css';
 import TextPart from './ChatPart-component/TextPart';
 import ChatMessage from './ChatPart-component/ChatMessage';
@@ -19,7 +18,7 @@ class ChatPart extends Component {
         console.log("dataaa 2 jaaaaa", data2)
         return (
             <div>
-                <HeaderChat data={data2} callback={this.props.callback} handleBackAndLeave={this.props.handleBackAndLeave}/>
+                <HeaderChat data={data2} callback={this.props.callback} handleBackAndLeave={this.props.handleBackAndLeave} />
                 <ChatMessage data={data2} />
                 <TextPart data={data2} />
             </div>

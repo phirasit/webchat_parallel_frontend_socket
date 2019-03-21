@@ -15,7 +15,7 @@ function convertMessage(message, userID) {
   timestamp: 0
   user: "1"
   */
-  // console.log(message)
+  console.log('original mes', message)
   let len = message.num_messages
   let realMessage = message.messages
   // console.log(len, realMessage)
@@ -230,12 +230,15 @@ export function readMessage(user, group, timestamp) {
 }
 
 export function sendMessage(user, group, message) {
+  let today = new Date();
+  let time = today.getHours() + ":" + today.getMinutes();
   let data = {
     user: user,
     group: group,
-    message: message
+    message: message,
+    time: time
   }
-  console.log(data)
+  // console.log(data)
   let str = JSON.stringify({ type: 'send_message', data: data });
   str = str.split("\"").join("\\\"")
   axios.get(boardcastURL, {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './message.css';
 import disImg from './img/images.png'
-import { List, Spin } from 'antd';
+import { List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import * as Caller from '../../utility/callFunction';
 import ReactDOM from 'react-dom';
@@ -19,6 +19,7 @@ class ChatMessage extends Component {
             loading: false,
             hasMore: true
         }
+
     }
 
     async componentDidMount() {
@@ -32,18 +33,26 @@ class ChatMessage extends Component {
             groupName: this.props.data.groupName
         });
         this.scrollBottom()
-        var getMessageTimer = setInterval(this.updateMessage(), 5000);
+        this.interval = setInterval(() => this.updateMessage(), 1500);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     async updateMessage() {
         console.log("try to update message ", this.state.clientID, "  ", this.state.groupName)
         let message = await Caller.getMessage(this.state.clientID, this.state.groupName)
-        console.log('messageee', message)
+        console.log('messageee', this.state.data.length, message.length)
+        if (this.state.data.length !== message.length) {
+            this.setState({
+                data: message
+            });
 
-        this.setState({
-            data: message
-        });
+            this.scrollBottom()
+        }
     }
+
     async componentWillReceiveProps(nextProps) {
         console.log('nextProps : ', nextProps)
         let message = await Caller.getMessage(nextProps.data.clientID, nextProps.data.groupName)
@@ -73,9 +82,7 @@ class ChatMessage extends Component {
     }
 
     scrollBottom = () => {
-        console.log('fffff')
         const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer);
-        console.log('tessss', this.messageContainer)
         if (messagesContainer != null) {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
@@ -86,7 +93,7 @@ class ChatMessage extends Component {
             <div className="message-part" >
                 <div className="demo-infinite-container" style={{ overflow: 'auto', flexGrow: "2" }}
                     ref={el => {
-                        this.messageContainer = el;
+                        this.messagesContainer = el;
                     }}
                 >
 
@@ -98,9 +105,8 @@ class ChatMessage extends Component {
                         <List
                             dataSource={this.state.data}
                             renderItem={item => {
-                                console.log(item)
                                 return (<div>
-                                    {item.isLeft == "true" && (
+                                    {item.isLeft === "true" && (
                                         <div>
                                             <div className="single-message">
                                                 <div className='image-cropper'>
@@ -116,7 +122,7 @@ class ChatMessage extends Component {
                                             </div>
                                         </div>)
                                     }
-                                    {item.isLeft == "false" && (
+                                    {item.isLeft === "false" && (
                                         <div>
                                             < div className="talk-bubble-right tri-right round btm-right" >
                                                 <div className="talktext-right">

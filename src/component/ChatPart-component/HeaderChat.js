@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Row, Col } from 'antd'
+import { Button } from 'antd'
 import './header-style.css';
 var Caller = require('../../utility/callFunction');
 
@@ -22,6 +22,7 @@ class HeaderChat extends Component {
         console.log('headerChat', this.state.groupName);
         Caller.leaveGroup(this.props.data.clientID, this.props.data.groupName)
         const data = { leaveGroupName: this.props.data.groupName, activeChat: 'false', groupName: this.props.data.groupName }
+        console.log(data);
         this.setState({
             activeChat: 'false',
             clientID: '',

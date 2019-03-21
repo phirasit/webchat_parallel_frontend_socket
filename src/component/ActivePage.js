@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Divider } from 'antd'
 import '../style-css/body.css';
 import ChatList from './ChatList.jsx'
 import ChatPart from './ChatPart';
@@ -24,7 +23,7 @@ class ActivePage extends Component {
         if (this.state.leaveGroupName !== '') {
             //this.state.chatTabList.map(())
             for (let i in this.state.chatTabList) {
-                if (this.state.chatTabList[i].groupName == this.state.leaveGroupName) {
+                if (this.state.chatTabList[i].groupName === this.state.leaveGroupName) {
                     const data = this.state.chatTabList;
                     data.pop(i);
                     this.setState({ chatTabList: data });
@@ -70,9 +69,8 @@ class ActivePage extends Component {
                 <div className="chat-list">
                     <ChatList callback={this.myCallback} clientID={this.state.clientID} chatTabList={this.state.chatTabList} handleAddChatTabList={this.handleAddChatTabList} />
                 </div>
-                {/* <Divider type="vertical" /> */}
                 {
-                    this.state.activeChat == 'true' &&
+                    this.state.activeChat === 'true' &&
                     (<div className="chat-part">
                         <ChatPart data={data} callback={this.myCallback} handleBackAndLeave={this.handleBackAndLeave} />
                     </div>)

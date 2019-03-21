@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Modal, Row, Input, Button } from 'antd';
-import { List, Spin } from 'antd';
+import { List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../style-css/ChatList.css';
 import ChatTab from './ChatTab';
@@ -23,10 +23,10 @@ class ChatList extends Component {
     }
 
     // componentDidMount() {
-    //     if(this.props.getActivePageState().activeChat == 'false'){
+    //     if(this.props.getActivePageState().activeChat === 'false'){
     //         if(this.props.getActivePageState().leaveGroupName != ''){
     //             for(let i in this.state.chatTabList){
-    //                 if(this.state.chatTabList[i].groupName == this.props.getActivePageState().leaveGroupName){
+    //                 if(this.state.chatTabList[i].groupName === this.props.getActivePageState().leaveGroupName){
     //                     this.state.chatTabList.pop(i);
     //                     break;
     //                 }
@@ -34,7 +34,7 @@ class ChatList extends Component {
     //         }
     //         else {
     //             for(let i in this.state.chatTabList){
-    //                 if(this.state.chatTabList[i].groupName == this.props.getActivePageState.groupName){
+    //                 if(this.state.chatTabList[i].groupName === this.props.getActivePageState.groupName){
     //                     this.state.chatTabList[i].activeChat = false ;
     //                     break;
     //                 }
@@ -58,11 +58,12 @@ class ChatList extends Component {
     handleOk1 = async (e) => {
         console.log(this.state.groupName);
         let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
-        const data = { groupName: this.state.groupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false' }
+        const data = { groupName: this.state.groupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
         console.log(log)
         // alert(log.log)
         this.setState({
             visible1: false,
+            groupName: ''
         });
         this.props.handleAddChatTabList(data);
 
@@ -71,11 +72,12 @@ class ChatList extends Component {
     handleOk2 = async (e) => {
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
-        const data = { groupName: this.state.joinGroupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false' }
+        const data = { groupName: this.state.joinGroupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
         console.log(log)
         // alert(log.log)
         this.setState({
             visible2: false,
+            joinGroupName: ''
         });
         this.props.handleAddChatTabList(data);
         // console.log(this.props.handleAddChatTabList)
@@ -134,9 +136,7 @@ class ChatList extends Component {
                 <div className='chatlist-content demo-infinite-container' style={{ overflow: 'auto' }} >
                     <InfiniteScroll
                         initialLoad={false}
-                        pageStart={0}
-                        loadMore={this.handleInfiniteOnLoad}
-                        hasMore={!this.state.loading && this.state.hasMore}
+                        pageStart={1}
                         useWindow={false}
                     ></InfiniteScroll>
                     <List

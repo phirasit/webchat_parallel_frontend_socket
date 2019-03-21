@@ -249,7 +249,6 @@ export function sendMessage(user, group, message) {
     }
   })
     .then(function (response) {
-      console.log(response)
       if (!response.data.error) {
         console.log('PASS')
         console.log(response.data.result);

@@ -26,7 +26,8 @@ class ChatMessage extends Component {
         console.log('name:', this.props.data.clientID, 'group:', this.props.data.groupName)
         let message = await Caller.getMessage(this.props.data.clientID, this.props.data.groupName)
         console.log('message', message)
-
+        if(message.code == 0 ) 
+            return
         this.setState({
             data: message,
             clientID: this.props.data.clientID,
@@ -43,7 +44,7 @@ class ChatMessage extends Component {
     async updateMessage() {
         console.log("try to update message ", this.state.clientID, "  ", this.state.groupName)
         let message = await Caller.getMessage(this.state.clientID, this.state.groupName)
-        console.log('messageee', this.state.data.length, message.length)
+        // console.log('messageee', this.state.data.length, message.length)
         if (this.state.data.length !== message.length) {
             this.setState({
                 data: message
@@ -53,7 +54,7 @@ class ChatMessage extends Component {
         }
         let len = message.length;
         let lastTimestamp = message[len-1].timestamp;
-        console.log('timestamp ==> ', len , " ", lastTimestamp)
+        // console.log('timestamp ==> ', len , " ", lastTimestamp)
         Caller.readMessage(this.state.clientID, this.state.groupName, lastTimestamp)
     }
 

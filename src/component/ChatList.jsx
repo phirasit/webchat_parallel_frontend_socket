@@ -74,7 +74,7 @@ class ChatList extends Component {
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
         const data = { groupName: this.state.joinGroupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
-        console.log(log)
+        // console.log(log)
         if(log.log != 0 )
             alert(log.log)
         this.setState({

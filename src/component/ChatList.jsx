@@ -60,29 +60,29 @@ class ChatList extends Component {
         let log = await Caller.createNewGroup(this.state.clientID, this.state.groupName);
         const data = { groupName: this.state.groupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
         console.log(log)
-        if(log.log != 0 ) alert(log.log)
+        if (log.log != 0) alert(log.log)
         this.setState({
             visible1: false,
             groupName: ''
         });
-        if(log.code == 0)
+        if (log.code == 0)
             this.props.handleAddChatTabList(data);
-        
+
     }
 
     handleOk2 = async (e) => {  //join
         console.log(this.state.joinGroupName);
         let log = await Caller.joinGroup(this.state.clientID, this.state.joinGroupName);
         const data = { groupName: this.state.joinGroupName, unreadNum: '', chatThumbnail: 'this.props.chatThumbnail', activeChat: 'false', clientID: this.state.clientID }
-        // console.log(log)
-        if(log.log != 0 )
+        console.log(log)
+        if (log.log != 0)
             alert(log.log)
         this.setState({
             visible2: false,
             joinGroupName: ''
         });
-        let foundExist = log.log.indexOf('exist') != -1 
-        if(foundExist)
+        let foundExist = log.log.indexOf('exist') != -1
+        if (foundExist)
             return
         this.props.handleAddChatTabList(data);
         console.log(foundExist)
@@ -155,7 +155,7 @@ class ChatList extends Component {
                     </List>
                     <InfiniteScroll />
                 </div>
-                <div className='chatlist-footer'>
+                <div className='chatlist-footer button'>
                     <Row style={{ paddingTop: '2vh' }}>
                         <Button onClick={this.showModal1} style={{ margin: 5 }}>Create Group</Button>
                         <Modal

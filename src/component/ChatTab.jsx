@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Badge } from 'antd';
-import tempChatTabPic from '../img/tempChatTabPic.jpg'
+import tempChatTabPic from '../img/chat-dis.png'
 import '../style-css/ChatTab.css'
 import * as Caller from '.././utility/callFunction';
 

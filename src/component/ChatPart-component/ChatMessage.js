@@ -118,7 +118,7 @@ class ChatMessage extends Component {
                                         <div>
                                             <div className="single-message">
                                                 <div className='image-cropper'>
-                                                    <img src={item.clientImg} ></img>
+                                                    <img src={this.state.clientImg} ></img>
                                                 </div>
                                                 <div style={{ margin: "10px", color: "grey" }}>{item.clientName}</div>
                                                 <div style={{ margin: "10px", color: "lightGray" }}>{item.time}</div>

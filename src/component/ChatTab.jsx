@@ -27,6 +27,8 @@ class ChatTab extends Component {
     }
 
     async getUnreadNum() {
+        if(this.state.activeChat == 'true') 
+            return 
         console.log('unreadd ===> ', 'name:', this.props.item.clientID, 'group:', this.props.item.groupName)
         let unread = await Caller.getUnreadMessage(this.props.item.clientID, this.props.item.groupName)
         console.log('unreadd', unread, 'num===', unread.message.num_messages)
@@ -58,7 +60,7 @@ class ChatTab extends Component {
                     <Col span={2}>
                         <div>
                             {
-                                (this.state.activeChat === 'false' || this.state.unreadNum !== 0) &&
+                                (this.state.activeChat === 'false' && this.state.unreadNum !== 0) &&
                                 <Badge count={this.state.unreadNum} />
                             }
                         </div>

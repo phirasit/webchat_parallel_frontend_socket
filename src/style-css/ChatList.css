@@ -17,3 +17,15 @@
     height: 10vh;
     background-color: darksalmon;
 }
+
+.button .ant-btn {
+    background: white;
+    border-color: #feb2a8;
+    color: #feb2a8;
+}
+
+.button .ant-btn:hover {
+    background: #feb2a8;
+    border-color: white;
+    color: white;
+}
